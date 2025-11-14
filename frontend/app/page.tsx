@@ -52,16 +52,38 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      {/* Navigation Bar */}
+      <nav className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-2">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+              </svg>
+              <span className="text-white font-bold text-xl">EduTech</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <a href="/auth/login" className="text-white hover:text-yellow-300 transition-colors font-medium">
+                Login
+              </a>
+              <a href="/auth/register" className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-300 transition-colors font-semibold">
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section - Inspired by Khan Academy & Brilliant.org */}
       <header className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <svg className="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span className="text-sm font-medium text-white">Phase 2 Complete - Core Infrastructure Ready</span>
+              <span className="text-sm font-medium text-white">Phase 4 Complete - User Authentication Ready</span>
             </div>
             
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white">
@@ -76,12 +98,16 @@ export default function Home() {
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center pt-6">
-              <Button size="lg" className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all selection:bg-gray-900 selection:text-yellow-400 font-semibold">
-                🚀 Start Free Trial
-              </Button>
-              <Button variant="outline" size="lg" className="border-2 border-white bg-white/20 text-white hover:bg-white hover:text-blue-600 backdrop-blur-sm selection:bg-white selection:text-blue-600">
-                📺 View Demo
-              </Button>
+              <a href="/auth/register">
+                <Button size="lg" className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all selection:bg-gray-900 selection:text-yellow-400 font-semibold">
+                  🚀 Start Free Trial
+                </Button>
+              </a>
+              <a href="#system-status">
+                <Button variant="outline" size="lg" className="border-2 border-white bg-white/20 text-white hover:bg-white hover:text-blue-600 backdrop-blur-sm selection:bg-white selection:text-blue-600">
+                  💻 View Demo
+                </Button>
+              </a>
             </div>
 
             {/* Stats Pills */}
@@ -109,7 +135,7 @@ export default function Home() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
         {/* System Health Stats - Duolingo-inspired */}
-        <section>
+        <section id="system-status">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">System Status</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {loading ? (
@@ -277,7 +303,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Phase 3 Completed */}
+        {/* Phase 3 & 4 Completed */}
         <section>
           <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-lg">
             <CardHeader>
@@ -285,12 +311,12 @@ export default function Home() {
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                ✅ Phase 3 Complete: AI Question Generation
+                ✅ Phase 3 & 4 Complete: AI + Authentication
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <p className="text-gray-700">AI-powered question generation engine is ready!</p>
+                <p className="text-gray-700">AI-powered question generation & user authentication ready!</p>
                 <div className="grid gap-3">
                   <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border-l-4 border-green-500">
                     <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">✓</div>
@@ -313,6 +339,20 @@ export default function Home() {
                       <p className="text-sm text-gray-600">6 endpoints operational at port 8001</p>
                     </div>
                   </div>
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border-l-4 border-green-500">
+                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">✓</div>
+                    <div>
+                      <p className="font-semibold text-gray-900">User Authentication System</p>
+                      <p className="text-sm text-gray-600">Registration, login, password reset - All functional</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border-l-4 border-green-500">
+                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">✓</div>
+                    <div>
+                      <p className="font-semibold text-gray-900">DPDP Compliance</p>
+                      <p className="text-sm text-gray-600">Parental consent for minors, email verification implemented</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -323,24 +363,24 @@ export default function Home() {
         <section>
           <Card className="bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-200 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-orange-800 text-2xl">🚀 Next Steps: Phase 4</CardTitle>
+              <CardTitle className="text-orange-800 text-2xl">🚀 Next Steps: Phase 5</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <p className="text-gray-700">Build User Authentication & Registration:</p>
+                <p className="text-gray-700">Build Subscription & Payment System:</p>
                 <div className="grid gap-3">
                   <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm">
                     <div className="flex-shrink-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">1</div>
                     <div>
-                      <p className="font-semibold text-gray-900">User Registration & Login</p>
-                      <p className="text-sm text-gray-600">Tasks T088-T097: Email/password auth, JWT tokens, session management</p>
+                      <p className="font-semibold text-gray-900">Subscription Tiers</p>
+                      <p className="text-sm text-gray-600">FREE, BUNDLE_BASIC, BUNDLE_PLUS, UNLIMITED plans</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm">
                     <div className="flex-shrink-0 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
                     <div>
-                      <p className="font-semibold text-gray-900">DPDP Compliance</p>
-                      <p className="text-sm text-gray-600">Tasks T098-T110: Parental consent for under 18, data protection</p>
+                      <p className="font-semibold text-gray-900">Razorpay Integration</p>
+                      <p className="text-sm text-gray-600">Payment gateway, webhook handling, invoice generation</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm">
@@ -360,9 +400,15 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
+          <div className="text-center space-y-4">
+            <div className="flex justify-center space-x-6">
+              <a href="/auth/register" className="text-gray-400 hover:text-white transition-colors">Sign Up</a>
+              <a href="/auth/login" className="text-gray-400 hover:text-white transition-colors">Login</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">About</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
             <p className="text-gray-400">© 2025 EduTech AI Platform. Built with ❤️ for JEE & NEET aspirants.</p>
-            <p className="text-sm text-gray-500 mt-2">Phase 3 Complete • AI Service Operational • Ready for Phase 4</p>
+            <p className="text-sm text-gray-500">Phase 4 Complete • User Authentication Live • DPDP Compliant</p>
           </div>
         </div>
       </footer>
