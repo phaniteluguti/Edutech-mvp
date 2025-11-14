@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 7
+      "actualWorkers": 8
     },
     "preserveOutput": "always",
     "reporter": [
@@ -41,7 +41,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 7
+          "actualWorkers": 8
         },
         "id": "chromium",
         "name": "chromium",
@@ -57,7 +57,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 7
+          "actualWorkers": 8
         },
         "id": "firefox",
         "name": "firefox",
@@ -73,7 +73,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 7
+          "actualWorkers": 8
         },
         "id": "webkit",
         "name": "webkit",
@@ -89,7 +89,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 7
+          "actualWorkers": 8
         },
         "id": "Mobile Chrome",
         "name": "Mobile Chrome",
@@ -105,7 +105,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 7
+          "actualWorkers": 8
         },
         "id": "Mobile Safari",
         "name": "Mobile Safari",
@@ -126,20 +126,20 @@
   },
   "suites": [
     {
-      "title": "phase6-user-flow.spec.ts",
-      "file": "phase6-user-flow.spec.ts",
+      "title": "phase1-authentication.spec.ts",
+      "file": "phase1-authentication.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Phase 6: Mock Test Taking Experience",
-          "file": "phase6-user-flow.spec.ts",
-          "line": 27,
+          "title": "Phase 1-4: Authentication Tests",
+          "file": "phase1-authentication.spec.ts",
+          "line": 34,
           "column": 6,
           "specs": [
             {
-              "title": "Complete User Flow: Login → View Tests → Take Test → View Results",
+              "title": "User Registration: Adult User Signup",
               "ok": true,
               "tags": [],
               "tests": [
@@ -154,118 +154,28 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 17027,
+                      "duration": 6866,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing adult user registration...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "Filling registration form...\n"
                         },
                         {
-                          "text": "============================================================\n"
+                          "text": "Submitting registration form...\n"
                         },
                         {
-                          "text": "Frontend URL: http://localhost:3000\n"
+                          "text": "✓ Registration completed (URL: http://localhost:3000/auth/register)\n"
                         },
                         {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Step 1: Logging in...\n"
-                        },
-                        {
-                          "text": "✓ Login successful\n"
-                        },
-                        {
-                          "text": "\nStep 2: Navigating to Mock Tests...\n"
-                        },
-                        {
-                          "text": "✓ Navigated to Tests page\n"
-                        },
-                        {
-                          "text": "\nStep 3: Verifying test list...\n"
-                        },
-                        {
-                          "text": "Page content includes: (self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\\\",[\\\"app-pages-internals\\\",\\\"s...\n"
-                        },
-                        {
-                          "text": "✓ Test list displayed correctly\n"
-                        },
-                        {
-                          "text": "\nStep 4: Starting test...\n"
-                        },
-                        {
-                          "text": "✓ Test started\n"
-                        },
-                        {
-                          "text": "\nStep 5: Answering questions...\n"
-                        },
-                        {
-                          "text": "  Page content preview: (self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\\\",[\\\"app-pages-internals\\\",\\\"static/chunks/app-pages-internals.js\\\"],\\\"SegmentViewNode\\\"]\\n7:\\\"$Sreact.fragment\\\"\\n16:I[\\\"(app-pag...\n"
-                        },
-                        {
-                          "text": "  ✓ Test page loaded\n"
-                        },
-                        {
-                          "text": "  ✓ Selected an option using selector: input[type=\"radio\"]\n"
-                        },
-                        {
-                          "text": "  ✓ Navigated to next question\n"
-                        },
-                        {
-                          "text": "\nStep 6: Submitting test...\n"
-                        },
-                        {
-                          "text": "  Dialog appeared: Are you sure you want to submit the test? This action cannot be undone.\n"
-                        },
-                        {
-                          "text": "  ✓ Confirmed submission via native dialog\n"
-                        },
-                        {
-                          "text": "  ✓ Clicked submit button\n"
-                        },
-                        {
-                          "text": "✓ Test submitted successfully\n"
-                        },
-                        {
-                          "text": "\nStep 7: Verifying results...\n"
-                        },
-                        {
-                          "text": "✓ Results displayed correctly\n"
-                        },
-                        {
-                          "text": "\nStep 8: Checking test history...\n"
-                        },
-                        {
-                          "text": "✓ Test history accessible\n"
-                        },
-                        {
-                          "text": "\n✅ Complete user flow test passed!\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Adult user registration test completed\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:39.999Z",
+                      "startTime": "2025-11-14T18:51:42.878Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -273,13 +183,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-332119d85858e5218b10",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 47,
+              "id": "21baf76ee29c111c0ac5-8fe01e0c440b10664d09",
+              "file": "phase1-authentication.spec.ts",
+              "line": 36,
               "column": 7
             },
             {
-              "title": "Test List Page: Filter and Display",
+              "title": "User Login: Valid Credentials",
               "ok": true,
               "tags": [],
               "tests": [
@@ -294,52 +204,22 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 11751,
+                      "duration": 4539,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing login with valid credentials...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Login successful, redirected to dashboard\n"
                         },
                         {
-                          "text": "============================================================\n"
-                        },
-                        {
-                          "text": "Frontend URL: http://localhost:3000\n"
-                        },
-                        {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Verifying test card components...\n"
-                        },
-                        {
-                          "text": "✅ Test list page working correctly\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Valid login working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:40.496Z",
+                      "startTime": "2025-11-14T18:51:43.469Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -347,13 +227,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-3b6760731777f82d891d",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 241,
+              "id": "21baf76ee29c111c0ac5-ae265437507fcb5ecda0",
+              "file": "phase1-authentication.spec.ts",
+              "line": 96,
               "column": 7
             },
             {
-              "title": "Test Taking Page: Timer and Navigation",
+              "title": "User Login: Invalid Credentials",
               "ok": true,
               "tags": [],
               "tests": [
@@ -368,67 +248,22 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 13528,
+                      "duration": 4823,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing login with invalid credentials...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Error message displayed for invalid credentials\n"
                         },
                         {
-                          "text": "============================================================\n"
-                        },
-                        {
-                          "text": "Frontend URL: http://localhost:3000\n"
-                        },
-                        {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Testing test-taking interface...\n"
-                        },
-                        {
-                          "text": "✓ Timer visible\n"
-                        },
-                        {
-                          "text": "✓ Next button visible\n"
-                        },
-                        {
-                          "text": "✓ Previous button visible\n"
-                        },
-                        {
-                          "text": "Testing option selection...\n"
-                        },
-                        {
-                          "text": "✓ Option selection working\n"
-                        },
-                        {
-                          "text": "✅ Test-taking interface working correctly\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Invalid login handling working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:39.937Z",
+                      "startTime": "2025-11-14T18:51:43.358Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -436,13 +271,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-4c9d32c52761fca18b16",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 280,
+              "id": "21baf76ee29c111c0ac5-f7b0d7f69519805d0034",
+              "file": "phase1-authentication.spec.ts",
+              "line": 116,
               "column": 7
             },
             {
-              "title": "Results Page: Display Score and Analysis",
+              "title": "Email Verification Flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -457,49 +292,25 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 11898,
+                      "duration": 3809,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing email verification page...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Email verification page loads\n"
                         },
                         {
-                          "text": "============================================================\n"
+                          "text": "✓ Resend verification email option available\n"
                         },
                         {
-                          "text": "Frontend URL: http://localhost:3000\n"
-                        },
-                        {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "⚠ No previous test attempts found. Skipping results verification.\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Email verification page working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:40.248Z",
+                      "startTime": "2025-11-14T18:51:42.971Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -507,13 +318,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-d8a970d82ec804f27004",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 336,
+              "id": "21baf76ee29c111c0ac5-70faa5447db3b2bec4e9",
+              "file": "phase1-authentication.spec.ts",
+              "line": 142,
               "column": 7
             },
             {
-              "title": "Error Handling: Unauthorized Access",
+              "title": "Forgot Password Flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -528,55 +339,28 @@
                       "workerIndex": 4,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 9093,
+                      "duration": 6262,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing forgot password flow...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Forgot password link found on login page\n"
                         },
                         {
-                          "text": "============================================================\n"
+                          "text": "✓ Navigated to forgot password page\n"
                         },
                         {
-                          "text": "Frontend URL: http://localhost:3000\n"
+                          "text": "✓ Password reset form submitted without error\n"
                         },
                         {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Testing unauthorized access...\n"
-                        },
-                        {
-                          "text": "✓ Unauthorized access redirected to login\n"
-                        },
-                        {
-                          "text": "✅ Error handling working correctly\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Forgot password flow working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:40.562Z",
+                      "startTime": "2025-11-14T18:51:43.769Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -584,13 +368,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-9f1452e547aa9006d564",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 374,
+              "id": "21baf76ee29c111c0ac5-368aef1cbf97ea7047ca",
+              "file": "phase1-authentication.spec.ts",
+              "line": 161,
               "column": 7
             },
             {
-              "title": "Responsive Design: Mobile View",
+              "title": "Parental Consent Flow (Minor User)",
               "ok": true,
               "tags": [],
               "tests": [
@@ -605,58 +389,22 @@
                       "workerIndex": 5,
                       "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 11638,
+                      "duration": 2858,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing parental consent for minor users...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Parental consent page loads\n"
                         },
                         {
-                          "text": "============================================================\n"
-                        },
-                        {
-                          "text": "Frontend URL: http://localhost:3000\n"
-                        },
-                        {
-                          "text": "Backend URL: http://localhost:4000\n"
-                        },
-                        {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Testing mobile responsiveness...\n"
-                        },
-                        {
-                          "text": "✓ Test cards visible on mobile\n"
-                        },
-                        {
-                          "text": "✓ Action buttons accessible on mobile\n"
-                        },
-                        {
-                          "text": "✅ Mobile responsiveness verified\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "✅ Parental consent page working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:40.461Z",
+                      "startTime": "2025-11-14T18:51:43.902Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -664,13 +412,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-86fe9b735ed89ed1d72a",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 388,
+              "id": "21baf76ee29c111c0ac5-1bb322fd1aa472b16ab2",
+              "file": "phase1-authentication.spec.ts",
+              "line": 209,
               "column": 7
             },
             {
-              "title": "API Integration: Backend Communication",
+              "title": "Session Persistence: Logout and Session Check",
               "ok": true,
               "tags": [],
               "tests": [
@@ -685,61 +433,31 @@
                       "workerIndex": 6,
                       "parallelIndex": 6,
                       "status": "passed",
-                      "duration": 13094,
+                      "duration": 6330,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                          "text": "Testing session management...\n"
                         },
                         {
-                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                          "text": "✓ Logged in successfully\n"
                         },
                         {
-                          "text": "============================================================\n"
+                          "text": "User info visible: true\n"
                         },
                         {
-                          "text": "Frontend URL: http://localhost:3000\n"
+                          "text": "✓ Logout button found: button:has-text(\"Logout\")\n"
                         },
                         {
-                          "text": "Backend URL: http://localhost:4000\n"
+                          "text": "⚠️ Direct logout button not found - checking for dropdown menu\n"
                         },
                         {
-                          "text": "Test User: student@example.com\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
-                        },
-                        {
-                          "text": "✓ Test attempts cleaned up\n"
-                        },
-                        {
-                          "text": "Testing API integration...\n"
-                        },
-                        {
-                          "text": "API calls made: \u001b[33m3\u001b[39m\n"
-                        },
-                        {
-                          "text": "✓ Tests API called\n"
-                        },
-                        {
-                          "text": "✓ Successfully started test and reached test-taking page\n"
-                        },
-                        {
-                          "text": "✅ API integration working correctly\n"
-                        },
-                        {
-                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
-                        },
-                        {
-                          "text": "Test Suite Completed!\n"
-                        },
-                        {
-                          "text": "============================================================\n\n"
+                          "text": "⚠️ Could not find logout functionality - test inconclusive\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T17:57:40.490Z",
+                      "startTime": "2025-11-14T18:51:43.779Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -747,9 +465,150 @@
                   "status": "expected"
                 }
               ],
-              "id": "2a190fc4da00bdd51980-41646716eb282cf1af41",
-              "file": "phase6-user-flow.spec.ts",
-              "line": 417,
+              "id": "21baf76ee29c111c0ac5-79993c44dc2fc38313b8",
+              "file": "phase1-authentication.spec.ts",
+              "line": 240,
+              "column": 7
+            },
+            {
+              "title": "Form Validation: Empty Fields",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 4827,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing form validation with empty fields...\n"
+                        },
+                        {
+                          "text": "✓ Form submission blocked for empty fields\n"
+                        },
+                        {
+                          "text": "✓ Password field validation working\n"
+                        },
+                        {
+                          "text": "✅ Form validation working correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T18:51:43.764Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-a2df0f7d0acd2d70bd97",
+              "file": "phase1-authentication.spec.ts",
+              "line": 331,
+              "column": 7
+            },
+            {
+              "title": "Protected Route Access: Unauthorized",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 9102,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing protected route access without authentication...\n"
+                        },
+                        {
+                          "text": "Current URL: http://localhost:3000/auth/signin, Has unauthorized msg: false\n"
+                        },
+                        {
+                          "text": "✓ Tests page access redirected to login\n"
+                        },
+                        {
+                          "text": "✅ Protected routes properly secured\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T18:51:47.090Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-653db1c2a73b55ec23e5",
+              "file": "phase1-authentication.spec.ts",
+              "line": 359,
+              "column": 7
+            },
+            {
+              "title": "Responsive Design: Mobile Authentication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 2801,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing authentication on mobile viewport...\n"
+                        },
+                        {
+                          "text": "✓ Login form responsive on mobile\n"
+                        },
+                        {
+                          "text": "✓ Login works on mobile viewport\n"
+                        },
+                        {
+                          "text": "✅ Mobile responsive design working correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T18:51:47.255Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-7d0a1e0ab9a8dcc87a7c",
+              "file": "phase1-authentication.spec.ts",
+              "line": 406,
               "column": 7
             }
           ]
@@ -759,9 +618,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-11-14T17:57:37.063Z",
-    "duration": 20435.358,
-    "expected": 7,
+    "startTime": "2025-11-14T18:51:38.426Z",
+    "duration": 17907.239999999998,
+    "expected": 10,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
