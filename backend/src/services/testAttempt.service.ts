@@ -346,26 +346,67 @@ export const testAttemptService = {
       topicAnalysis[qa.topic].score += qa.scoreEarned;
     });
 
+    // Generate summary analysis using scoring service
+    const { scoringService } = await import('./scoring.service');
+    const summary = scoringService.generateSummary(
+      attempt.score || 0,
+      attempt.mockTest.totalQuestions * 4, // Assuming 4 marks per question
+      attempt.correctAnswers || 0,
+      attempt.incorrectAnswers || 0,
+      attempt.unattempted || 0,
+      attempt.mockTest.totalQuestions,
+      attempt.timeTaken || 0,
+      attempt.mockTest.duration
+    );
+
+    // Identify weak topics
+    const topicStats = Object.values(topicAnalysis).map(topic => ({
+      ...topic,
+      accuracy: topic.attempted > 0 ? (topic.correct / topic.attempted) * 100 : 0
+    }));
+    const weakTopics = topicStats
+      .filter(t => t.attempted > 0 && t.accuracy < 60)
+      .map(t => t.topic);
+
+    // Generate recommendations
+    const recommendations: string[] = [];
+    if (summary.accuracy < 50) {
+      recommendations.push('Focus on understanding core concepts. Review fundamentals thoroughly.');
+    } else if (summary.accuracy < 75) {
+      recommendations.push('Good progress! Work on accuracy by practicing more questions.');
+    } else {
+      recommendations.push('Excellent accuracy! Keep practicing to maintain consistency.');
+    }
+    
+    if (weakTopics.length > 0) {
+      recommendations.push(`Focus more on: ${weakTopics.slice(0, 3).join(', ')}`);
+    }
+    
+    if (summary.timeUtilization > 90) {
+      recommendations.push('Work on speed. Practice timed tests to improve time management.');
+    }
+
     return {
-      attempt: {
-        id: attempt.id,
-        status: attempt.status,
-        score: attempt.score,
-        correctAnswers: attempt.correctAnswers,
-        incorrectAnswers: attempt.incorrectAnswers,
-        unattempted: attempt.unattempted,
-        timeTaken: attempt.timeTaken,
-        submittedAt: attempt.submittedAt
-      },
+      score: attempt.score,
+      correctAnswers: attempt.correctAnswers,
+      incorrectAnswers: attempt.incorrectAnswers,
+      unattempted: attempt.unattempted,
+      percentile: null, // TODO: Calculate from all attempts
       mockTest: {
         id: attempt.mockTest.id,
         title: attempt.mockTest.title,
-        exam: attempt.mockTest.exam.name,
-        totalQuestions: attempt.mockTest.totalQuestions,
+        totalMarks: attempt.mockTest.totalQuestions * 4,
         duration: attempt.mockTest.duration
       },
-      questionAnalysis,
-      topicAnalysis: Object.values(topicAnalysis)
+      analysis: {
+        percentage: summary.percentage,
+        accuracy: summary.accuracy,
+        timeUtilization: summary.timeUtilization,
+        weakTopics,
+        recommendations,
+        questionWiseAnalysis: questionAnalysis,
+        topicWiseStats: topicStats
+      }
     };
   },
 

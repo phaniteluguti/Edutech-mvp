@@ -74,6 +74,33 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 });
 
 /**
+ * GET /api/v1/tests/my-attempts
+ * Get user's test history
+ * NOTE: Must be before /:id route to avoid matching conflicts
+ */
+router.get('/my-attempts', authenticate, async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user!.userId;
+    const { examId } = req.query;
+
+    const attempts = await testAttemptService.getUserAttempts(
+      userId,
+      examId as string | undefined
+    );
+
+    res.json({
+      success: true,
+      data: attempts
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
+/**
  * GET /api/v1/tests/:id
  * Get test details
  */
@@ -274,32 +301,6 @@ router.get('/attempts/:id/results', authenticate, async (req: AuthRequest, res: 
   } catch (error: any) {
     const status = error.message.includes('not yet submitted') ? 400 : 404;
     res.status(status).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-/**
- * GET /api/v1/tests/my-attempts
- * Get user's test history
- */
-router.get('/my-attempts', authenticate, async (req: AuthRequest, res: Response) => {
-  try {
-    const userId = req.user!.userId;
-    const { examId } = req.query;
-
-    const attempts = await testAttemptService.getUserAttempts(
-      userId,
-      examId as string | undefined
-    );
-
-    res.json({
-      success: true,
-      data: attempts
-    });
-  } catch (error: any) {
-    res.status(500).json({
       success: false,
       message: error.message
     });
