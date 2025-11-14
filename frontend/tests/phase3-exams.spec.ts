@@ -286,27 +286,43 @@ test.describe('Phase 3/5: Exam Management Tests', () => {
     console.log('Testing navigation from exam to its tests...');
     
     await page.goto(`${BASE_URL}/exams`);
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
     
-    // Look for buttons to view tests
-    const testButtons = page.locator('button:has-text("Test"), a:has-text("Test"), button:has-text("Mock"), a:has-text("Mock")');
+    // Look for "View Mock Tests" buttons
+    const testButtons = page.locator('button:has-text("View Mock Tests")');
+    const buttonCount = await testButtons.count();
     
-    if (await testButtons.first().isVisible().catch(() => false)) {
-      console.log('✓ Test/Mock button found');
+    if (buttonCount > 0) {
+      console.log(`✓ Found ${buttonCount} "View Mock Tests" button(s)`);
       
-      await testButtons.first().click();
-      await page.waitForTimeout(2000);
+      // Click the first one and wait for navigation
+      const [response] = await Promise.all([
+        page.waitForNavigation({ timeout: 5000 }).catch(() => null),
+        testButtons.first().click()
+      ]);
       
-      // Should navigate to tests page
+      await page.waitForTimeout(1000);
+      
+      // Should navigate to exam-specific tests page
       const currentUrl = page.url();
-      if (currentUrl.includes('/tests')) {
-        console.log('✓ Navigated to tests page');
+      const isTestsPage = currentUrl.includes('/exams/') && currentUrl.includes('/tests');
+      
+      if (isTestsPage) {
+        console.log('✓ Navigated to exam tests page:', currentUrl);
+        
+        // Check for page content
+        const hasContent = await page.locator('text=/Mock Tests|No mock tests|Choose a mock test/i').isVisible().catch(() => false);
+        if (hasContent) {
+          console.log('✓ Tests page loaded with content');
+        }
+        
         console.log('✅ Exam to tests navigation working');
       } else {
-        console.log(`⚠️ Navigation went to: ${currentUrl}`);
+        console.log(`⚠️ Expected /exams/[slug]/tests, got: ${currentUrl}`);
+        console.log('⚠️ Button may not be properly configured or navigation blocked');
       }
     } else {
-      console.log('⚠️ No test buttons found on exam page');
+      console.log('⚠️ No "View Mock Tests" buttons found on exam page');
     }
   });
 

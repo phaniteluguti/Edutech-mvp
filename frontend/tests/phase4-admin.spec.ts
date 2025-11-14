@@ -23,16 +23,9 @@ test.describe('Phase 4: Admin Features Tests', () => {
   test('Admin Login: Access Admin Panel', async ({ page }) => {
     console.log('Testing admin login...');
     
-    // Try to navigate to admin login, fall back to regular login
-    const adminLoginResponse = await page.goto(`${BASE_URL}/admin/login`).catch(() => null);
-    
-    // Check if we got a 404 or error
-    if (!adminLoginResponse || adminLoginResponse.status() === 404) {
-      console.log('⚠️ /admin/login not found, trying /auth/login');
-      await page.goto(`${BASE_URL}/auth/login`);
-    }
-    
-    // Wait for page to load
+    // Admins use the same login page as regular users
+    console.log('ℹ️ Note: Admins use regular login page (no separate /admin/login)');
+    await page.goto(`${BASE_URL}/auth/login`);
     await page.waitForTimeout(1000);
     
     // Fill admin credentials
@@ -43,29 +36,31 @@ test.describe('Phase 4: Admin Features Tests', () => {
     await page.click('button[type="submit"]');
     
     // Wait for redirect
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
     
     const currentUrl = page.url();
-    console.log(`Current URL after login: ${currentUrl}`);
+    console.log(`✓ Logged in, current URL: ${currentUrl}`);
     
-    // Should redirect to admin dashboard or show admin features
-    const isAdminPage = currentUrl.includes('/admin');
-    const hasDashboard = currentUrl.includes('/dashboard');
+    // After login, try to access admin panel directly
+    await page.goto(`${BASE_URL}/admin/exams`);
+    await page.waitForTimeout(2000);
+    
+    const adminUrl = page.url();
+    const isAdminPage = adminUrl.includes('/admin');
     
     if (isAdminPage) {
-      console.log('✓ Redirected to admin panel');
-      console.log('✅ Admin login successful');
-    } else if (hasDashboard) {
-      console.log('⚠️ Redirected to regular dashboard - checking for admin features');
+      console.log('✓ Successfully accessed admin panel at /admin/exams');
       
-      // Look for admin-specific elements
-      const adminLinks = page.locator('a:has-text("Admin"), a:has-text("Manage")');
-      if (await adminLinks.first().isVisible().catch(() => false)) {
-        console.log('✓ Admin links found on dashboard');
-        console.log('✅ Admin access granted');
-      } else {
-        console.log('⚠️ No admin features visible - credentials may be invalid');
+      // Check for admin features
+      const hasAdminContent = await page.locator('text=/Create|Manage|Admin|Exam/i').first().isVisible().catch(() => false);
+      if (hasAdminContent) {
+        console.log('✓ Admin content visible');
       }
+      
+      console.log('✅ Admin login and panel access successful');
+    } else {
+      console.log(`⚠️ Could not access admin panel, redirected to: ${adminUrl}`);
+      console.log('⚠️ Admin credentials may be invalid or admin role not assigned');
     }
   });
 

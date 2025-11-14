@@ -126,6 +126,544 @@
   },
   "suites": [
     {
+      "title": "phase3-exams.spec.ts",
+      "file": "phase3-exams.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 3/5: Exam Management Tests",
+          "file": "phase3-exams.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Exams Page: Loads and Displays Exam List",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10380,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exams page load...\n"
+                        },
+                        {
+                          "text": "✓ Exams page loads\n"
+                        },
+                        {
+                          "text": "✓ Found 5 exam-related elements\n"
+                        },
+                        {
+                          "text": "✅ Exams page displays content\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.465Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-61d8331f717385d0b6a9",
+              "file": "phase3-exams.spec.ts",
+              "line": 37,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Display Exam Details",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 11670,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exam details display...\n"
+                        },
+                        {
+                          "text": "✓ Found exam: JEE Main\n"
+                        },
+                        {
+                          "text": "✓ Found metadata: duration\n"
+                        },
+                        {
+                          "text": "✓ Found metadata: marks\n"
+                        },
+                        {
+                          "text": "✓ Found 2 types of exam metadata\n"
+                        },
+                        {
+                          "text": "✅ Exam details displayed correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:36.766Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-fc9b1be8806a0191e140",
+              "file": "phase3-exams.spec.ts",
+              "line": 63,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Filter or Sort Exams",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 11219,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exam filtering/sorting...\n"
+                        },
+                        {
+                          "text": "⚠️ No filter/sort controls found - may not be implemented\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.394Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-ce83ceb46df5a4fc85b7",
+              "file": "phase3-exams.spec.ts",
+              "line": 108,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Navigate to Exam Details",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 10774,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing navigation to exam details...\n"
+                        },
+                        {
+                          "text": "⚠️ No exam links found\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.655Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-b1618c01ab2b589f5945",
+              "file": "phase3-exams.spec.ts",
+              "line": 139,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Display Exam Count",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 10957,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exam count display...\n"
+                        },
+                        {
+                          "text": "✓ Found count indicator: Total Marks\n"
+                        },
+                        {
+                          "text": "✅ Exam count displayed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.378Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-ab7af2004ce46e3fd2c3",
+              "file": "phase3-exams.spec.ts",
+              "line": 172,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Exam Categories",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 10577,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exam categories...\n"
+                        },
+                        {
+                          "text": "✓ Found category: Engineering\n"
+                        },
+                        {
+                          "text": "✓ Found category: Medical\n"
+                        },
+                        {
+                          "text": "✓ Found category: JEE\n"
+                        },
+                        {
+                          "text": "✓ Found category: NEET\n"
+                        },
+                        {
+                          "text": "✓ Found 4 exam categories/subjects\n"
+                        },
+                        {
+                          "text": "✅ Exam categories displayed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.636Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-85c1fa47e784fed968b9",
+              "file": "phase3-exams.spec.ts",
+              "line": 203,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Responsive Mobile View",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 10518,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exams page on mobile...\n"
+                        },
+                        {
+                          "text": "✓ Exams page loads on mobile\n"
+                        },
+                        {
+                          "text": "✓ Content visible on mobile (5 items)\n"
+                        },
+                        {
+                          "text": "✅ Exams page responsive on mobile\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.637Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-4ba75cffa62b96ff542b",
+              "file": "phase3-exams.spec.ts",
+              "line": 235,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Empty State Handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 10674,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing empty state handling...\n"
+                        },
+                        {
+                          "text": "✓ Exam content present (8 items)\n"
+                        },
+                        {
+                          "text": "✅ Empty state handling checked\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:37.664Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-15d8ce1688f22fbf2ea1",
+              "file": "phase3-exams.spec.ts",
+              "line": 260,
+              "column": 7
+            },
+            {
+              "title": "Exams to Tests: Navigate to Mock Tests for Exam",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12025,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing navigation from exam to its tests...\n"
+                        },
+                        {
+                          "text": "✓ Found 2 \"View Mock Tests\" button(s)\n"
+                        },
+                        {
+                          "text": "✓ Navigated to exam tests page: http://localhost:3000/exams/jee-main/tests\n"
+                        },
+                        {
+                          "text": "✅ Exam to tests navigation working\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:48.290Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-7264be499f1af5ae31bf",
+              "file": "phase3-exams.spec.ts",
+              "line": 285,
+              "column": 7
+            },
+            {
+              "title": "Exams Page: Search Functionality",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 10786,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "Testing exam search...\n"
+                        },
+                        {
+                          "text": "⚠️ Search functionality not found\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T19:07:48.668Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6e0c7f2688cab5b95a37-39028b780bf256549df4",
+              "file": "phase3-exams.spec.ts",
+              "line": 329,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "phase4-admin.spec.ts",
       "file": "phase4-admin.spec.ts",
       "column": 0,
@@ -151,25 +689,31 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 14409,
+                      "duration": 16350,
                       "errors": [],
                       "stdout": [
                         {
                           "text": "Testing admin login...\n"
                         },
                         {
-                          "text": "⚠️ /admin/login not found, trying /auth/login\n"
+                          "text": "ℹ️ Note: Admins use regular login page (no separate /admin/login)\n"
                         },
                         {
-                          "text": "Current URL after login: http://localhost:3000/auth/login\n"
+                          "text": "✓ Logged in, current URL: http://localhost:3000/auth/login\n"
+                        },
+                        {
+                          "text": "⚠️ Could not access admin panel, redirected to: http://localhost:3000/auth/login\n"
+                        },
+                        {
+                          "text": "⚠️ Admin credentials may be invalid or admin role not assigned\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.094Z",
+                      "startTime": "2025-11-14T19:07:48.729Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -195,22 +739,25 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 11174,
+                      "duration": 14163,
                       "errors": [],
                       "stdout": [
                         {
                           "text": "Testing admin exam management access...\n"
                         },
                         {
-                          "text": "⚠️ Admin exam management page not accessible or not implemented\n"
+                          "text": "✓ Admin exam management page loads\n"
+                        },
+                        {
+                          "text": "✅ Exam management access working\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.060Z",
+                      "startTime": "2025-11-14T19:07:48.918Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -220,7 +767,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-933621584de0a0d41cc2",
               "file": "phase4-admin.spec.ts",
-              "line": 72,
+              "line": 67,
               "column": 7
             },
             {
@@ -236,10 +783,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
                       "status": "passed",
-                      "duration": 11482,
+                      "duration": 15015,
                       "errors": [],
                       "stdout": [
                         {
@@ -257,7 +804,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.590Z",
+                      "startTime": "2025-11-14T19:07:48.920Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -267,7 +814,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-e14e9f37a41cc39033df",
               "file": "phase4-admin.spec.ts",
-              "line": 96,
+              "line": 91,
               "column": 7
             },
             {
@@ -283,10 +830,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 12912,
+                      "duration": 16271,
                       "errors": [],
                       "stdout": [
                         {
@@ -304,7 +851,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.355Z",
+                      "startTime": "2025-11-14T19:07:48.976Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -314,7 +861,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-ed4a8cb527d62d5ac699",
               "file": "phase4-admin.spec.ts",
-              "line": 128,
+              "line": 123,
               "column": 7
             },
             {
@@ -330,10 +877,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 4,
-                      "parallelIndex": 4,
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
                       "status": "passed",
-                      "duration": 11664,
+                      "duration": 14963,
                       "errors": [],
                       "stdout": [
                         {
@@ -345,7 +892,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.622Z",
+                      "startTime": "2025-11-14T19:07:49.032Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -355,7 +902,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-c5b305ebaa133151cdf4",
               "file": "phase4-admin.spec.ts",
-              "line": 167,
+              "line": 162,
               "column": 7
             },
             {
@@ -371,10 +918,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 5,
-                      "parallelIndex": 5,
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 11632,
+                      "duration": 14989,
                       "errors": [],
                       "stdout": [
                         {
@@ -386,7 +933,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.709Z",
+                      "startTime": "2025-11-14T19:07:49.109Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -396,7 +943,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-0c3501ab55b77b6fb701",
               "file": "phase4-admin.spec.ts",
-              "line": 192,
+              "line": 187,
               "column": 7
             },
             {
@@ -412,10 +959,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 6,
-                      "parallelIndex": 6,
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 12710,
+                      "duration": 9205,
                       "errors": [],
                       "stdout": [
                         {
@@ -430,7 +977,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.714Z",
+                      "startTime": "2025-11-14T19:07:59.509Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -440,7 +987,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-ae2a07494f181eb01ca3",
               "file": "phase4-admin.spec.ts",
-              "line": 217,
+              "line": 212,
               "column": 7
             },
             {
@@ -456,10 +1003,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 7,
-                      "parallelIndex": 7,
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 11586,
+                      "duration": 8979,
                       "errors": [],
                       "stdout": [
                         {
@@ -471,7 +1018,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:30.693Z",
+                      "startTime": "2025-11-14T19:08:00.355Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -481,7 +1028,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-50ce5c78eba8f1f57227",
               "file": "phase4-admin.spec.ts",
-              "line": 247,
+              "line": 242,
               "column": 7
             },
             {
@@ -497,10 +1044,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 7201,
+                      "duration": 7914,
                       "errors": [],
                       "stdout": [
                         {
@@ -512,7 +1059,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:41.498Z",
+                      "startTime": "2025-11-14T19:08:03.113Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -522,7 +1069,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-ed05df0c212e30f58d9a",
               "file": "phase4-admin.spec.ts",
-              "line": 276,
+              "line": 271,
               "column": 7
             },
             {
@@ -538,10 +1085,10 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
                       "status": "passed",
-                      "duration": 6355,
+                      "duration": 7170,
                       "errors": [],
                       "stdout": [
                         {
@@ -553,7 +1100,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:01:42.444Z",
+                      "startTime": "2025-11-14T19:08:03.980Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -563,7 +1110,7 @@
               ],
               "id": "bcf3cf958f9f93fe02b1-d15008cf035c34b7b7fc",
               "file": "phase4-admin.spec.ts",
-              "line": 305,
+              "line": 300,
               "column": 7
             }
           ]
@@ -573,9 +1120,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-11-14T19:01:26.106Z",
-    "duration": 22827.899,
-    "expected": 10,
+    "startTime": "2025-11-14T19:07:32.862Z",
+    "duration": 38412.71,
+    "expected": 20,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
