@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import AppLayout from '@/components/layout/AppLayout';
 
 interface MockTest {
   id: string;
@@ -76,14 +77,17 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
+      <AppLayout>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </AppLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
+    <AppLayout>
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
       {/* Decorative background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
@@ -279,6 +283,7 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </AppLayout>
   );
 }

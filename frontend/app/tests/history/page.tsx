@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AppLayout from '@/components/layout/AppLayout';
 
 interface TestAttempt {
   id: string;
@@ -91,7 +92,8 @@ export default function TestHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <AppLayout>
+      <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
@@ -102,7 +104,7 @@ export default function TestHistoryPage() {
             </div>
             <Link
               href="/tests"
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg"
             >
               Browse Tests
             </Link>
@@ -217,13 +219,6 @@ export default function TestHistoryPage() {
                         Resume
                       </Link>
                     )}
-                    
-                    <Link
-                      href="/tests"
-                      className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
-                    >
-                      Browse Tests
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -262,6 +257,7 @@ export default function TestHistoryPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </AppLayout>
   );
 }

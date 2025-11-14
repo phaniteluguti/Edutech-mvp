@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import AppLayout from '@/components/layout/AppLayout';
 
 interface Exam {
   id: string;
@@ -44,14 +45,17 @@ export default function ExamsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
-      </div>
+      <AppLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </AppLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <AppLayout>
+      <div className="min-h-screen bg-gray-50 py-8">
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -160,6 +164,7 @@ export default function ExamsPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </AppLayout>
   );
 }

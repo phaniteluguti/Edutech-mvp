@@ -9,6 +9,7 @@ import { userService, CreateUserInput } from './user.service';
 import { emailService } from './email.service';
 import prisma from '../lib/prisma';
 import crypto from 'crypto';
+import { OAuth2Client } from 'google-auth-library';
 
 export interface RegisterInput extends CreateUserInput {
   confirmPassword: string;
@@ -335,6 +336,87 @@ export class AuthService {
    */
   private generateToken(): string {
     return crypto.randomBytes(32).toString('hex');
+  }
+
+  /**
+   * Authenticate user with Google OAuth
+   */
+  async googleOAuth(credential: string): Promise<AuthResponse> {
+    try {
+      const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+      
+      // Verify the Google credential token
+      const ticket = await client.verifyIdToken({
+        idToken: credential,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+
+      const payload = ticket.getPayload();
+      if (!payload || !payload.email) {
+        throw new Error('Invalid Google credential');
+      }
+
+      const { email, name, picture, sub: googleId } = payload;
+
+      // Check if user exists
+      let user = await userService.findByEmail(email);
+
+      if (!user) {
+        // Create new user with Google OAuth
+        // Generate a random password (user won't use it)
+        const randomPassword = crypto.randomBytes(32).toString('hex');
+        
+        user = await userService.createUser({
+          email,
+          name: name || email.split('@')[0],
+          password: randomPassword,
+          phone: '', // Optional for OAuth users
+          dateOfBirth: new Date('2000-01-01'), // Default date, can be updated later
+          parentEmail: undefined,
+        });
+
+        // Mark email as verified for OAuth users
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { 
+            isEmailVerified: true,
+            googleId: googleId,
+          },
+        });
+
+        user = await prisma.user.findUnique({ where: { id: user.id } }) as User;
+      } else if (!user.googleId) {
+        // Link Google account to existing user
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { 
+            googleId: googleId,
+            isEmailVerified: true, // Auto-verify email for Google users
+          },
+        });
+
+        user = await prisma.user.findUnique({ where: { id: user.id } }) as User;
+      }
+
+      // Generate JWT token
+      const token = generateToken({
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+      });
+
+      // Remove sensitive data
+      const { passwordHash, ...userWithoutPassword } = user;
+
+      return {
+        user: userWithoutPassword,
+        token,
+        requiresEmailVerification: false, // Google OAuth users are auto-verified
+      };
+    } catch (error: any) {
+      console.error('Google OAuth error:', error);
+      throw new Error('Failed to authenticate with Google');
+    }
   }
 }
 

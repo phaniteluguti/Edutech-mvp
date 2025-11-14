@@ -70,6 +70,12 @@ const resendVerificationSchema = z.object({
   }),
 });
 
+const googleOAuthSchema = z.object({
+  body: z.object({
+    credential: z.string().min(1, 'Google credential is required'),
+  }),
+});
+
 /**
  * POST /auth/register
  * Register a new user
@@ -257,6 +263,29 @@ router.post('/resend-verification', validate(resendVerificationSchema), async (r
     res.status(400).json({
       success: false,
       message: error.message || 'Failed to send verification email',
+    });
+  }
+});
+
+/**
+ * POST /auth/oauth/google
+ * Authenticate user with Google OAuth
+ */
+router.post('/oauth/google', validate(googleOAuthSchema), async (req: Request, res: Response) => {
+  try {
+    const { credential } = req.body;
+
+    const authResponse = await authService.googleOAuth(credential);
+
+    res.json({
+      success: true,
+      message: 'Google authentication successful',
+      data: authResponse,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message || 'Google authentication failed',
     });
   }
 });

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import PasswordStrength from '@/components/auth/PasswordStrength';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function RegisterPage() {
     name: '',
     dateOfBirth: '',
     parentEmail: '',
+    acceptTerms: false,
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,6 +55,12 @@ export default function RegisterPage() {
 
     if (showParentEmail && !formData.parentEmail) {
       setError('Parent email is required for users under 18');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.acceptTerms) {
+      setError('You must accept the Terms of Service and Privacy Policy');
       setLoading(false);
       return;
     }
@@ -125,8 +133,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-purple-800 py-12 px-4 sm:px-6 lg:px-8">
+      {/* Decorative elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-md w-full space-y-8 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 relative z-10">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create your account
@@ -247,6 +261,7 @@ export default function RegisterPage() {
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 placeholder="Min. 8 characters"
               />
+              <PasswordStrength password={formData.password} />
             </div>
 
             <div>
@@ -263,6 +278,33 @@ export default function RegisterPage() {
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 placeholder="Re-enter password"
               />
+            </div>
+
+            <div className="flex items-start">
+              <div className="flex items-center h-5">
+                <input
+                  id="acceptTerms"
+                  name="acceptTerms"
+                  type="checkbox"
+                  required
+                  checked={formData.acceptTerms}
+                  onChange={(e) => setFormData({ ...formData, acceptTerms: e.target.checked })}
+                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
+                />
+              </div>
+              <div className="ml-3 text-sm">
+                <label htmlFor="acceptTerms" className="text-gray-700">
+                  I accept the{' '}
+                  <Link href="/terms" target="_blank" className="font-medium text-purple-600 hover:text-purple-500">
+                    Terms of Service
+                  </Link>
+                  {' '}and{' '}
+                  <Link href="/privacy" target="_blank" className="font-medium text-purple-600 hover:text-purple-500">
+                    Privacy Policy
+                  </Link>
+                  {' '}*
+                </label>
+              </div>
             </div>
           </div>
 

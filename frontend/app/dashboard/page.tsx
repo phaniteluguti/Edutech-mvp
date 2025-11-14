@@ -289,30 +289,28 @@ export default function DashboardPage() {
           )}
 
           {activeTab === 'profile' && (
-            <div className="max-w-2xl">
-              <div className="bg-white rounded-xl shadow-md p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Profile Information</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm text-gray-600">Full Name</label>
-                    <p className="text-lg font-medium text-gray-800">{user?.name}</p>
+            <div className="max-w-4xl mx-auto">
+              {/* Redirect to dedicated profile page */}
+              <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl shadow-lg p-8 text-center">
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
                   </div>
-                  <div>
-                    <label className="text-sm text-gray-600">Email Address</label>
-                    <p className="text-lg font-medium text-gray-800">{user?.email}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600">Account Type</label>
-                    <p className="text-lg font-medium text-gray-800">
-                      {user?.isMinor ? 'Minor (Under 18)' : 'Adult (18+)'}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600">Email Verification</label>
-                    <p className="text-lg font-medium text-gray-800">
-                      {user?.isEmailVerified ? '✅ Verified' : '⚠️ Not Verified'}
-                    </p>
-                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Manage Your Profile</h3>
+                  <p className="text-gray-600 mb-6">
+                    View and edit your personal information, update your details, and manage your account settings.
+                  </p>
+                  <button
+                    onClick={() => router.push('/profile')}
+                    className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all font-semibold shadow-lg hover:shadow-xl inline-flex items-center gap-3"
+                  >
+                    <span>Go to Full Profile</span>
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
