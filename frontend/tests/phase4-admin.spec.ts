@@ -23,12 +23,17 @@ test.describe('Phase 4: Admin Features Tests', () => {
   test('Admin Login: Access Admin Panel', async ({ page }) => {
     console.log('Testing admin login...');
     
-    // Navigate to admin login (might be same as regular login)
-    await page.goto(`${BASE_URL}/admin/login`).catch(async () => {
-      // If /admin/login doesn't exist, try regular login
+    // Try to navigate to admin login, fall back to regular login
+    const adminLoginResponse = await page.goto(`${BASE_URL}/admin/login`).catch(() => null);
+    
+    // Check if we got a 404 or error
+    if (!adminLoginResponse || adminLoginResponse.status() === 404) {
       console.log('⚠️ /admin/login not found, trying /auth/login');
       await page.goto(`${BASE_URL}/auth/login`);
-    });
+    }
+    
+    // Wait for page to load
+    await page.waitForTimeout(1000);
     
     // Fill admin credentials
     await page.fill('input[name="emailOrPhone"], input[name="email"]', adminUser.email);
