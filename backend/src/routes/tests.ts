@@ -307,4 +307,49 @@ router.get('/attempts/:id/results', authenticate, async (req: AuthRequest, res: 
   }
 });
 
+/**
+ * POST /api/v1/tests/cleanup-attempts
+ * Cleanup test attempts for a user (for testing purposes)
+ */
+router.post('/cleanup-attempts', async (req, res: Response) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is required'
+      });
+    }
+
+    // Find user by email
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    // Delete all test attempts for this user
+    const deleted = await prisma.testAttempt.deleteMany({
+      where: { userId: user.id }
+    });
+
+    res.json({
+      success: true,
+      message: `Deleted ${deleted.count} test attempt(s)`,
+      data: { count: deleted.count }
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 export default router;

@@ -1,0 +1,14 @@
+{
+  "name": "frontend-tests",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:mobile": "playwright test --project='Mobile Chrome'",
+    "test:report": "playwright show-report",
+    "test:phase6": "playwright test tests/phase6-user-flow.spec.ts"
+  }
+}

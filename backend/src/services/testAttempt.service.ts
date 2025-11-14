@@ -6,70 +6,138 @@ export const testAttemptService = {
    * Start a new test attempt
    */
   async startAttempt(userId: string, mockTestId: string) {
-    // Check if user already has an attempt for this test
-    const existing = await prisma.testAttempt.findFirst({
-      where: {
-        userId,
-        mockTestId
-      }
-    });
-
-    if (existing) {
-      if (existing.status === 'SUBMITTED') {
-        throw new Error('Test already submitted. Cannot restart.');
-      }
-      
-      // Resume existing attempt
-      return existing;
-    }
-
-    // Get mock test details to validate
-    const mockTest = await prisma.mockTest.findUnique({
-      where: { id: mockTestId },
-      include: { exam: true }
-    });
-
-    if (!mockTest) {
-      throw new Error('Mock test not found');
-    }
-
-    // Create new attempt
-    const attempt = await prisma.testAttempt.create({
-      data: {
-        userId,
-        mockTestId,
-        status: 'IN_PROGRESS',
-        startedAt: new Date(),
-        responses: {},
-        syncVersion: 1,
-        syncStatus: 'synced'
-      },
-      include: {
-        mockTest: {
-          include: {
-            exam: true,
-            questions: {
-              orderBy: { questionNumber: 'asc' },
-              select: {
-                id: true,
-                questionNumber: true,
-                text: true,
-                imageUrl: true,
-                type: true,
-                options: true,
-                marks: true,
-                negativeMarks: true,
-                subject: true,
-                topic: true,
-                difficulty: true
+    try {
+      // Check if user already has an attempt for this test
+      const existing = await prisma.testAttempt.findFirst({
+        where: {
+          userId,
+          mockTestId
+        },
+        include: {
+          mockTest: {
+            include: {
+              exam: true,
+              questions: {
+                orderBy: { questionNumber: 'asc' },
+                select: {
+                  id: true,
+                  questionNumber: true,
+                  text: true,
+                  imageUrl: true,
+                  type: true,
+                  options: true,
+                  marks: true,
+                  negativeMarks: true,
+                  subject: true,
+                  topic: true,
+                  difficulty: true
+                }
               }
             }
           }
         }
-      }
-    });
+      });
 
-    return attempt;
+      if (existing) {
+        if (existing.status === 'SUBMITTED') {
+          throw new Error('Test already submitted. Cannot restart.');
+        }
+        
+        // Resume existing attempt
+        return existing;
+      }
+
+      // Get mock test details to validate
+      const mockTest = await prisma.mockTest.findUnique({
+        where: { id: mockTestId },
+        include: { exam: true }
+      });
+
+      if (!mockTest) {
+        throw new Error('Mock test not found');
+      }
+
+      // Create new attempt
+      const attempt = await prisma.testAttempt.create({
+        data: {
+          userId,
+          mockTestId,
+          status: 'IN_PROGRESS',
+          startedAt: new Date(),
+          responses: {},
+          syncVersion: 1,
+          syncStatus: 'synced'
+        },
+        include: {
+          mockTest: {
+            include: {
+              exam: true,
+              questions: {
+                orderBy: { questionNumber: 'asc' },
+                select: {
+                  id: true,
+                  questionNumber: true,
+                  text: true,
+                  imageUrl: true,
+                  type: true,
+                  options: true,
+                  marks: true,
+                  negativeMarks: true,
+                  subject: true,
+                  topic: true,
+                  difficulty: true
+                }
+              }
+            }
+          }
+        }
+      });
+
+      return attempt;
+    } catch (error: any) {
+      // If unique constraint error, fetch and return the existing attempt
+      if (error.code === 'P2002') {
+        console.log('Unique constraint error - fetching existing attempt');
+        const existingAttempt = await prisma.testAttempt.findFirst({
+          where: {
+            userId,
+            mockTestId
+          },
+          include: {
+            mockTest: {
+              include: {
+                exam: true,
+                questions: {
+                  orderBy: { questionNumber: 'asc' },
+                  select: {
+                    id: true,
+                    questionNumber: true,
+                    text: true,
+                    imageUrl: true,
+                    type: true,
+                    options: true,
+                    marks: true,
+                    negativeMarks: true,
+                    subject: true,
+                    topic: true,
+                    difficulty: true
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (existingAttempt) {
+          if (existingAttempt.status === 'SUBMITTED') {
+            throw new Error('Test already submitted. Cannot restart.');
+          }
+          return existingAttempt;
+        }
+      }
+      
+      throw error;
+    }
   },
 
   /**

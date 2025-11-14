@@ -1,0 +1,769 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 7
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Users/pteluguti/EdtTech-mvp/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "phase6-user-flow.spec.ts",
+      "file": "phase6-user-flow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 6: Mock Test Taking Experience",
+          "file": "phase6-user-flow.spec.ts",
+          "line": 27,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Complete User Flow: Login → View Tests → Take Test → View Results",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17027,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Step 1: Logging in...\n"
+                        },
+                        {
+                          "text": "✓ Login successful\n"
+                        },
+                        {
+                          "text": "\nStep 2: Navigating to Mock Tests...\n"
+                        },
+                        {
+                          "text": "✓ Navigated to Tests page\n"
+                        },
+                        {
+                          "text": "\nStep 3: Verifying test list...\n"
+                        },
+                        {
+                          "text": "Page content includes: (self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\\\",[\\\"app-pages-internals\\\",\\\"s...\n"
+                        },
+                        {
+                          "text": "✓ Test list displayed correctly\n"
+                        },
+                        {
+                          "text": "\nStep 4: Starting test...\n"
+                        },
+                        {
+                          "text": "✓ Test started\n"
+                        },
+                        {
+                          "text": "\nStep 5: Answering questions...\n"
+                        },
+                        {
+                          "text": "  Page content preview: (self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\\\",[\\\"app-pages-internals\\\",\\\"static/chunks/app-pages-internals.js\\\"],\\\"SegmentViewNode\\\"]\\n7:\\\"$Sreact.fragment\\\"\\n16:I[\\\"(app-pag...\n"
+                        },
+                        {
+                          "text": "  ✓ Test page loaded\n"
+                        },
+                        {
+                          "text": "  ✓ Selected an option using selector: input[type=\"radio\"]\n"
+                        },
+                        {
+                          "text": "  ✓ Navigated to next question\n"
+                        },
+                        {
+                          "text": "\nStep 6: Submitting test...\n"
+                        },
+                        {
+                          "text": "  Dialog appeared: Are you sure you want to submit the test? This action cannot be undone.\n"
+                        },
+                        {
+                          "text": "  ✓ Confirmed submission via native dialog\n"
+                        },
+                        {
+                          "text": "  ✓ Clicked submit button\n"
+                        },
+                        {
+                          "text": "✓ Test submitted successfully\n"
+                        },
+                        {
+                          "text": "\nStep 7: Verifying results...\n"
+                        },
+                        {
+                          "text": "✓ Results displayed correctly\n"
+                        },
+                        {
+                          "text": "\nStep 8: Checking test history...\n"
+                        },
+                        {
+                          "text": "✓ Test history accessible\n"
+                        },
+                        {
+                          "text": "\n✅ Complete user flow test passed!\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:39.999Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-332119d85858e5218b10",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 47,
+              "column": 7
+            },
+            {
+              "title": "Test List Page: Filter and Display",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 11751,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Verifying test card components...\n"
+                        },
+                        {
+                          "text": "✅ Test list page working correctly\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:40.496Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-3b6760731777f82d891d",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 241,
+              "column": 7
+            },
+            {
+              "title": "Test Taking Page: Timer and Navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 13528,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Testing test-taking interface...\n"
+                        },
+                        {
+                          "text": "✓ Timer visible\n"
+                        },
+                        {
+                          "text": "✓ Next button visible\n"
+                        },
+                        {
+                          "text": "✓ Previous button visible\n"
+                        },
+                        {
+                          "text": "Testing option selection...\n"
+                        },
+                        {
+                          "text": "✓ Option selection working\n"
+                        },
+                        {
+                          "text": "✅ Test-taking interface working correctly\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:39.937Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-4c9d32c52761fca18b16",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 280,
+              "column": 7
+            },
+            {
+              "title": "Results Page: Display Score and Analysis",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 11898,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "⚠ No previous test attempts found. Skipping results verification.\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:40.248Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-d8a970d82ec804f27004",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 336,
+              "column": 7
+            },
+            {
+              "title": "Error Handling: Unauthorized Access",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 9093,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Testing unauthorized access...\n"
+                        },
+                        {
+                          "text": "✓ Unauthorized access redirected to login\n"
+                        },
+                        {
+                          "text": "✅ Error handling working correctly\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:40.562Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-9f1452e547aa9006d564",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 374,
+              "column": 7
+            },
+            {
+              "title": "Responsive Design: Mobile View",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 11638,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Testing mobile responsiveness...\n"
+                        },
+                        {
+                          "text": "✓ Test cards visible on mobile\n"
+                        },
+                        {
+                          "text": "✓ Action buttons accessible on mobile\n"
+                        },
+                        {
+                          "text": "✅ Mobile responsiveness verified\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:40.461Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-86fe9b735ed89ed1d72a",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 388,
+              "column": 7
+            },
+            {
+              "title": "API Integration: Backend Communication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 13094,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Phase 6: Mock Test Taking Experience - Frontend Tests\n"
+                        },
+                        {
+                          "text": "============================================================\n"
+                        },
+                        {
+                          "text": "Frontend URL: http://localhost:3000\n"
+                        },
+                        {
+                          "text": "Backend URL: http://localhost:4000\n"
+                        },
+                        {
+                          "text": "Test User: student@example.com\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        },
+                        {
+                          "text": "✓ Test attempts cleaned up\n"
+                        },
+                        {
+                          "text": "Testing API integration...\n"
+                        },
+                        {
+                          "text": "API calls made: \u001b[33m3\u001b[39m\n"
+                        },
+                        {
+                          "text": "✓ Tests API called\n"
+                        },
+                        {
+                          "text": "✓ Successfully started test and reached test-taking page\n"
+                        },
+                        {
+                          "text": "✅ API integration working correctly\n"
+                        },
+                        {
+                          "text": "\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n"
+                        },
+                        {
+                          "text": "Test Suite Completed!\n"
+                        },
+                        {
+                          "text": "============================================================\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T17:57:40.490Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a190fc4da00bdd51980-41646716eb282cf1af41",
+              "file": "phase6-user-flow.spec.ts",
+              "line": 417,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-11-14T17:57:37.063Z",
+    "duration": 20435.358,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
