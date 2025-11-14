@@ -85,31 +85,36 @@ export default function TestHistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
+      <AppLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        </div>
+      </AppLayout>
     );
   }
 
   return (
     <AppLayout>
-      <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <div className="mb-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 py-12 px-8 mb-8">
+        <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Test History</h1>
-              <p className="text-gray-600">View all your past test attempts and results</p>
+              <h1 className="text-4xl font-bold text-white mb-2">Test History</h1>
+              <p className="text-purple-200">View all your past test attempts and results</p>
             </div>
             <Link
               href="/tests"
-              className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg"
+              className="px-6 py-3 bg-white text-purple-900 font-semibold rounded-lg hover:bg-purple-50 transition-colors shadow-lg hover:shadow-xl"
             >
               Browse Tests
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 pb-8">
 
         {/* Error State */}
         {error && (

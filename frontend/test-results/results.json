@@ -126,20 +126,20 @@
   },
   "suites": [
     {
-      "title": "phase3-exams.spec.ts",
-      "file": "phase3-exams.spec.ts",
+      "title": "phase1-authentication.spec.ts",
+      "file": "phase1-authentication.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Phase 3/5: Exam Management Tests",
-          "file": "phase3-exams.spec.ts",
-          "line": 15,
+          "title": "Phase 1-4: Authentication Tests",
+          "file": "phase1-authentication.spec.ts",
+          "line": 40,
           "column": 6,
           "specs": [
             {
-              "title": "Exams Page: Loads and Displays Exam List",
+              "title": "User Registration: Adult User Signup",
               "ok": true,
               "tags": [],
               "tests": [
@@ -154,31 +154,28 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 10380,
+                      "duration": 12309,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing adult user registration...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "Filling registration form...\n"
                         },
                         {
-                          "text": "Testing exams page load...\n"
+                          "text": "Submitting registration form...\n"
                         },
                         {
-                          "text": "✓ Exams page loads\n"
+                          "text": "✓ Registration completed (URL: http://localhost:3000/auth/register)\n"
                         },
                         {
-                          "text": "✓ Found 5 exam-related elements\n"
-                        },
-                        {
-                          "text": "✅ Exams page displays content\n"
+                          "text": "✅ Adult user registration test completed\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.465Z",
+                      "startTime": "2025-11-14T20:48:43.916Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -186,13 +183,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-61d8331f717385d0b6a9",
-              "file": "phase3-exams.spec.ts",
-              "line": 37,
+              "id": "21baf76ee29c111c0ac5-8fe01e0c440b10664d09",
+              "file": "phase1-authentication.spec.ts",
+              "line": 42,
               "column": 7
             },
             {
-              "title": "Exams Page: Display Exam Details",
+              "title": "User Login: Valid Credentials",
               "ok": true,
               "tags": [],
               "tests": [
@@ -207,37 +204,22 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 11670,
+                      "duration": 15236,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing login with valid credentials...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Login successful, redirected to dashboard\n"
                         },
                         {
-                          "text": "Testing exam details display...\n"
-                        },
-                        {
-                          "text": "✓ Found exam: JEE Main\n"
-                        },
-                        {
-                          "text": "✓ Found metadata: duration\n"
-                        },
-                        {
-                          "text": "✓ Found metadata: marks\n"
-                        },
-                        {
-                          "text": "✓ Found 2 types of exam metadata\n"
-                        },
-                        {
-                          "text": "✅ Exam details displayed correctly\n"
+                          "text": "✅ Valid login working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:36.766Z",
+                      "startTime": "2025-11-14T20:48:44.188Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -245,13 +227,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-fc9b1be8806a0191e140",
-              "file": "phase3-exams.spec.ts",
-              "line": 63,
+              "id": "21baf76ee29c111c0ac5-ae265437507fcb5ecda0",
+              "file": "phase1-authentication.spec.ts",
+              "line": 102,
               "column": 7
             },
             {
-              "title": "Exams Page: Filter or Sort Exams",
+              "title": "User Login: Invalid Credentials",
               "ok": true,
               "tags": [],
               "tests": [
@@ -266,25 +248,22 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 11219,
+                      "duration": 13784,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing login with invalid credentials...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Error message displayed for invalid credentials\n"
                         },
                         {
-                          "text": "Testing exam filtering/sorting...\n"
-                        },
-                        {
-                          "text": "⚠️ No filter/sort controls found - may not be implemented\n"
+                          "text": "✅ Invalid login handling working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.394Z",
+                      "startTime": "2025-11-14T20:48:44.128Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -292,13 +271,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-ce83ceb46df5a4fc85b7",
-              "file": "phase3-exams.spec.ts",
-              "line": 108,
+              "id": "21baf76ee29c111c0ac5-f7b0d7f69519805d0034",
+              "file": "phase1-authentication.spec.ts",
+              "line": 133,
               "column": 7
             },
             {
-              "title": "Exams Page: Navigate to Exam Details",
+              "title": "Email Verification Flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -313,25 +292,25 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 10774,
+                      "duration": 8754,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing email verification page...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Email verification page loads\n"
                         },
                         {
-                          "text": "Testing navigation to exam details...\n"
+                          "text": "✓ Resend verification email option available\n"
                         },
                         {
-                          "text": "⚠️ No exam links found\n"
+                          "text": "✅ Email verification page working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.655Z",
+                      "startTime": "2025-11-14T20:48:43.915Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -339,13 +318,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-b1618c01ab2b589f5945",
-              "file": "phase3-exams.spec.ts",
-              "line": 139,
+              "id": "21baf76ee29c111c0ac5-70faa5447db3b2bec4e9",
+              "file": "phase1-authentication.spec.ts",
+              "line": 161,
               "column": 7
             },
             {
-              "title": "Exams Page: Display Exam Count",
+              "title": "Forgot Password Flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -360,28 +339,28 @@
                       "workerIndex": 4,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 10957,
+                      "duration": 15741,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing forgot password flow...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Forgot password link found on login page\n"
                         },
                         {
-                          "text": "Testing exam count display...\n"
+                          "text": "✓ Navigated to forgot password page\n"
                         },
                         {
-                          "text": "✓ Found count indicator: Total Marks\n"
+                          "text": "✓ Password reset form submitted without error\n"
                         },
                         {
-                          "text": "✅ Exam count displayed\n"
+                          "text": "✅ Forgot password flow working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.378Z",
+                      "startTime": "2025-11-14T20:48:44.525Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -389,13 +368,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-ab7af2004ce46e3fd2c3",
-              "file": "phase3-exams.spec.ts",
-              "line": 172,
+              "id": "21baf76ee29c111c0ac5-368aef1cbf97ea7047ca",
+              "file": "phase1-authentication.spec.ts",
+              "line": 180,
               "column": 7
             },
             {
-              "title": "Exams Page: Exam Categories",
+              "title": "Parental Consent Flow (Minor User)",
               "ok": true,
               "tags": [],
               "tests": [
@@ -410,40 +389,22 @@
                       "workerIndex": 5,
                       "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 10577,
+                      "duration": 8096,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing parental consent for minor users...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Parental consent page loads\n"
                         },
                         {
-                          "text": "Testing exam categories...\n"
-                        },
-                        {
-                          "text": "✓ Found category: Engineering\n"
-                        },
-                        {
-                          "text": "✓ Found category: Medical\n"
-                        },
-                        {
-                          "text": "✓ Found category: JEE\n"
-                        },
-                        {
-                          "text": "✓ Found category: NEET\n"
-                        },
-                        {
-                          "text": "✓ Found 4 exam categories/subjects\n"
-                        },
-                        {
-                          "text": "✅ Exam categories displayed\n"
+                          "text": "✅ Parental consent page working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.636Z",
+                      "startTime": "2025-11-14T20:48:44.397Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -451,13 +412,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-85c1fa47e784fed968b9",
-              "file": "phase3-exams.spec.ts",
-              "line": 203,
+              "id": "21baf76ee29c111c0ac5-1bb322fd1aa472b16ab2",
+              "file": "phase1-authentication.spec.ts",
+              "line": 228,
               "column": 7
             },
             {
-              "title": "Exams Page: Responsive Mobile View",
+              "title": "Session Persistence: Logout and Session Check",
               "ok": true,
               "tags": [],
               "tests": [
@@ -472,31 +433,37 @@
                       "workerIndex": 6,
                       "parallelIndex": 6,
                       "status": "passed",
-                      "duration": 10518,
+                      "duration": 19041,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing session management...\n"
                         },
                         {
                           "text": "✓ Logged in successfully\n"
                         },
                         {
-                          "text": "Testing exams page on mobile...\n"
+                          "text": "User info visible: true\n"
                         },
                         {
-                          "text": "✓ Exams page loads on mobile\n"
+                          "text": "✓ Logout button found: button:has-text(\"Logout\")\n"
                         },
                         {
-                          "text": "✓ Content visible on mobile (5 items)\n"
+                          "text": "⚠️ Direct logout button not found - checking for dropdown menu\n"
                         },
                         {
-                          "text": "✅ Exams page responsive on mobile\n"
+                          "text": "✓ Found user menu: div:has-text(\"student\")\n"
+                        },
+                        {
+                          "text": "✓ Logout found in dropdown menu\n"
+                        },
+                        {
+                          "text": "⚠️ Could not find logout functionality - test inconclusive\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.637Z",
+                      "startTime": "2025-11-14T20:48:44.525Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -504,13 +471,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-4ba75cffa62b96ff542b",
-              "file": "phase3-exams.spec.ts",
-              "line": 235,
+              "id": "21baf76ee29c111c0ac5-79993c44dc2fc38313b8",
+              "file": "phase1-authentication.spec.ts",
+              "line": 259,
               "column": 7
             },
             {
-              "title": "Exams Page: Empty State Handling",
+              "title": "Form Validation: Empty Fields",
               "ok": true,
               "tags": [],
               "tests": [
@@ -525,28 +492,25 @@
                       "workerIndex": 7,
                       "parallelIndex": 7,
                       "status": "passed",
-                      "duration": 10674,
+                      "duration": 9878,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing form validation with empty fields...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Form submission blocked for empty fields\n"
                         },
                         {
-                          "text": "Testing empty state handling...\n"
+                          "text": "✓ Password field validation working\n"
                         },
                         {
-                          "text": "✓ Exam content present (8 items)\n"
-                        },
-                        {
-                          "text": "✅ Empty state handling checked\n"
+                          "text": "✅ Form validation working correctly\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:37.664Z",
+                      "startTime": "2025-11-14T20:48:44.469Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -554,13 +518,151 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-15d8ce1688f22fbf2ea1",
-              "file": "phase3-exams.spec.ts",
-              "line": 260,
+              "id": "21baf76ee29c111c0ac5-a2df0f7d0acd2d70bd97",
+              "file": "phase1-authentication.spec.ts",
+              "line": 350,
               "column": 7
             },
             {
-              "title": "Exams to Tests: Navigate to Mock Tests for Exam",
+              "title": "Protected Route Access: Unauthorized",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 21529,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing protected route access without authentication...\n"
+                        },
+                        {
+                          "text": "✓ Dashboard access redirected to login\n"
+                        },
+                        {
+                          "text": "✓ Tests page access redirected to login\n"
+                        },
+                        {
+                          "text": "✅ Protected routes properly secured\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:48:53.738Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-653db1c2a73b55ec23e5",
+              "file": "phase1-authentication.spec.ts",
+              "line": 378,
+              "column": 7
+            },
+            {
+              "title": "Responsive Design: Mobile Authentication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 10470,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing authentication on mobile viewport...\n"
+                        },
+                        {
+                          "text": "✓ Login form responsive on mobile\n"
+                        },
+                        {
+                          "text": "✓ Login works on mobile viewport\n"
+                        },
+                        {
+                          "text": "✅ Mobile responsive design working correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:48:54.047Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-7d0a1e0ab9a8dcc87a7c",
+              "file": "phase1-authentication.spec.ts",
+              "line": 425,
+              "column": 7
+            },
+            {
+              "title": "Minor Registration with Parent Email Required",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 7066,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing minor user registration with parental consent requirement...\n"
+                        },
+                        {
+                          "text": "✓ Parent email field appeared for minor user\n"
+                        },
+                        {
+                          "text": "✅ Minor registration form validation completed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:48:55.771Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-34fe72a6670269cfd177",
+              "file": "phase1-authentication.spec.ts",
+              "line": 456,
+              "column": 7
+            },
+            {
+              "title": "Password Strength Validation",
               "ok": true,
               "tags": [],
               "tests": [
@@ -575,31 +677,31 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 12025,
+                      "duration": 6590,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing password strength requirements...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "✓ Weak password detected: pass123\n"
                         },
                         {
-                          "text": "Testing navigation from exam to its tests...\n"
+                          "text": "✓ Weak password detected: password\n"
                         },
                         {
-                          "text": "✓ Found 2 \"View Mock Tests\" button(s)\n"
+                          "text": "✓ Weak password detected: 12345678\n"
                         },
                         {
-                          "text": "✓ Navigated to exam tests page: http://localhost:3000/exams/jee-main/tests\n"
+                          "text": "✓ Weak password detected: Password\n"
                         },
                         {
-                          "text": "✅ Exam to tests navigation working\n"
+                          "text": "✅ Password strength validation tested\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.290Z",
+                      "startTime": "2025-11-14T20:48:57.148Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -607,13 +709,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-7264be499f1af5ae31bf",
-              "file": "phase3-exams.spec.ts",
-              "line": 285,
+              "id": "21baf76ee29c111c0ac5-b0ec92f93ab22459aa6d",
+              "file": "phase1-authentication.spec.ts",
+              "line": 498,
               "column": 7
             },
             {
-              "title": "Exams Page: Search Functionality",
+              "title": "Phone Number Login (Alternative to Email)",
               "ok": true,
               "tags": [],
               "tests": [
@@ -625,28 +727,25 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 4,
-                      "parallelIndex": 4,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 10786,
+                      "duration": 5499,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Logging in...\n"
+                          "text": "Testing login with phone number...\n"
                         },
                         {
-                          "text": "✓ Logged in successfully\n"
+                          "text": "⚠️ Phone login may not be supported yet or credentials invalid\n"
                         },
                         {
-                          "text": "Testing exam search...\n"
-                        },
-                        {
-                          "text": "⚠️ Search functionality not found\n"
+                          "text": "✅ Phone login option tested\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.668Z",
+                      "startTime": "2025-11-14T20:48:58.650Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -654,30 +753,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "6e0c7f2688cab5b95a37-39028b780bf256549df4",
-              "file": "phase3-exams.spec.ts",
-              "line": 329,
+              "id": "21baf76ee29c111c0ac5-a3f9875c7fd25d8059a5",
+              "file": "phase1-authentication.spec.ts",
+              "line": 532,
               "column": 7
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "phase4-admin.spec.ts",
-      "file": "phase4-admin.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
-        {
-          "title": "Phase 4: Admin Features Tests",
-          "file": "phase4-admin.spec.ts",
-          "line": 21,
-          "column": 6,
-          "specs": [
+            },
             {
-              "title": "Admin Login: Access Admin Panel",
+              "title": "Social Login: OAuth Buttons Presence",
               "ok": true,
               "tags": [],
               "tests": [
@@ -692,28 +774,25 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 16350,
+                      "duration": 3447,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Testing admin login...\n"
+                          "text": "Testing social login options availability...\n"
                         },
                         {
-                          "text": "ℹ️ Note: Admins use regular login page (no separate /admin/login)\n"
+                          "text": "✓ Google OAuth button found\n"
                         },
                         {
-                          "text": "✓ Logged in, current URL: http://localhost:3000/auth/login\n"
+                          "text": "⚠️ Apple OAuth not implemented yet\n"
                         },
                         {
-                          "text": "⚠️ Could not access admin panel, redirected to: http://localhost:3000/auth/login\n"
-                        },
-                        {
-                          "text": "⚠️ Admin credentials may be invalid or admin role not assigned\n"
+                          "text": "✅ Social login button presence checked\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.729Z",
+                      "startTime": "2025-11-14T20:49:00.262Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -721,233 +800,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "bcf3cf958f9f93fe02b1-a68bfc4eb6be2842473b",
-              "file": "phase4-admin.spec.ts",
-              "line": 23,
+              "id": "21baf76ee29c111c0ac5-1759f0dd20e90ba9e83c",
+              "file": "phase1-authentication.spec.ts",
+              "line": 559,
               "column": 7
             },
             {
-              "title": "Admin: Exam Management Page Access",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 5,
-                      "parallelIndex": 5,
-                      "status": "passed",
-                      "duration": 14163,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing admin exam management access...\n"
-                        },
-                        {
-                          "text": "✓ Admin exam management page loads\n"
-                        },
-                        {
-                          "text": "✅ Exam management access working\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.918Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "bcf3cf958f9f93fe02b1-933621584de0a0d41cc2",
-              "file": "phase4-admin.spec.ts",
-              "line": 67,
-              "column": 7
-            },
-            {
-              "title": "Admin: View Exam List",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 6,
-                      "parallelIndex": 6,
-                      "status": "passed",
-                      "duration": 15015,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing admin exam list view...\n"
-                        },
-                        {
-                          "text": "✓ Exam list/table found\n"
-                        },
-                        {
-                          "text": "✓ Found 6 exam entries\n"
-                        },
-                        {
-                          "text": "✅ Admin can view exam list\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.920Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "bcf3cf958f9f93fe02b1-e14e9f37a41cc39033df",
-              "file": "phase4-admin.spec.ts",
-              "line": 91,
-              "column": 7
-            },
-            {
-              "title": "Admin: Create New Exam Button",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 16271,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing create new exam functionality...\n"
-                        },
-                        {
-                          "text": "✓ Create exam button found\n"
-                        },
-                        {
-                          "text": "✓ Create exam form/modal appears\n"
-                        },
-                        {
-                          "text": "✅ Create exam functionality present\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-11-14T19:07:48.976Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "bcf3cf958f9f93fe02b1-ed4a8cb527d62d5ac699",
-              "file": "phase4-admin.spec.ts",
-              "line": 123,
-              "column": 7
-            },
-            {
-              "title": "Admin: Edit Exam Functionality",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 7,
-                      "parallelIndex": 7,
-                      "status": "passed",
-                      "duration": 14963,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing edit exam functionality...\n"
-                        },
-                        {
-                          "text": "⚠️ Edit buttons not found - may not be implemented\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-11-14T19:07:49.032Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "bcf3cf958f9f93fe02b1-c5b305ebaa133151cdf4",
-              "file": "phase4-admin.spec.ts",
-              "line": 162,
-              "column": 7
-            },
-            {
-              "title": "Admin: Delete Exam Functionality",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 14989,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Testing delete exam functionality...\n"
-                        },
-                        {
-                          "text": "⚠️ Delete buttons not found - may not be implemented\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-11-14T19:07:49.109Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "bcf3cf958f9f93fe02b1-0c3501ab55b77b6fb701",
-              "file": "phase4-admin.spec.ts",
-              "line": 187,
-              "column": 7
-            },
-            {
-              "title": "Admin: Non-Admin User Access Restriction",
+              "title": "Privacy Policy and Terms Acceptance",
               "ok": true,
               "tags": [],
               "tests": [
@@ -962,22 +821,25 @@
                       "workerIndex": 4,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 9205,
+                      "duration": 4976,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Testing admin access restrictions for regular users...\n"
+                          "text": "Testing privacy policy and terms acceptance...\n"
                         },
                         {
-                          "text": "✓ Logged in as regular student\n"
+                          "text": "⚠️ Privacy policy acceptance checkbox not found\n"
                         },
                         {
-                          "text": "⚠️ Regular user may have access to admin panel - security issue!\n"
+                          "text": "✓ Privacy policy link available\n"
+                        },
+                        {
+                          "text": "✅ Privacy policy compliance tested\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:07:59.509Z",
+                      "startTime": "2025-11-14T20:49:02.134Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -985,13 +847,110 @@
                   "status": "expected"
                 }
               ],
-              "id": "bcf3cf958f9f93fe02b1-ae2a07494f181eb01ca3",
-              "file": "phase4-admin.spec.ts",
-              "line": 212,
+              "id": "21baf76ee29c111c0ac5-14ff332eb0103a2c2571",
+              "file": "phase1-authentication.spec.ts",
+              "line": 587,
               "column": 7
             },
             {
-              "title": "Admin: Bulk Operations",
+              "title": "Session Management: Multiple Devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 16885,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing multi-device session management...\n"
+                        },
+                        {
+                          "text": "✓ Logged in on first device\n"
+                        },
+                        {
+                          "text": "✓ Logged in on second device\n"
+                        },
+                        {
+                          "text": "✓ Both sessions remain active (concurrent sessions allowed)\n"
+                        },
+                        {
+                          "text": "✅ Multi-device session management tested\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:02.885Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-94583be6bc0254a5bcee",
+              "file": "phase1-authentication.spec.ts",
+              "line": 625,
+              "column": 7
+            },
+            {
+              "title": "Account Security: Session Timeout After Inactivity",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5925,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing session timeout behavior...\n"
+                        },
+                        {
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "⚠️ Session timeout info not displayed to user\n"
+                        },
+                        {
+                          "text": "✅ Session timeout awareness tested\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:03.753Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-3b35854b702e4d0c783f",
+              "file": "phase1-authentication.spec.ts",
+              "line": 667,
+              "column": 7
+            },
+            {
+              "title": "Email Format Validation",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1006,19 +965,31 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 8979,
+                      "duration": 6966,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Testing admin bulk operations...\n"
+                          "text": "Testing email format validation...\n"
                         },
                         {
-                          "text": "⚠️ Bulk operations not found - may not be implemented\n"
+                          "text": "✓ Invalid email rejected: notanemail\n"
+                        },
+                        {
+                          "text": "✓ Invalid email rejected: missing@domain\n"
+                        },
+                        {
+                          "text": "✓ Invalid email rejected: @nodomain.com\n"
+                        },
+                        {
+                          "text": "✓ Invalid email rejected: spaces in@email.com\n"
+                        },
+                        {
+                          "text": "✅ Email format validation working\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:08:00.355Z",
+                      "startTime": "2025-11-14T20:49:03.805Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1026,14 +997,61 @@
                   "status": "expected"
                 }
               ],
-              "id": "bcf3cf958f9f93fe02b1-50ce5c78eba8f1f57227",
-              "file": "phase4-admin.spec.ts",
-              "line": 242,
+              "id": "21baf76ee29c111c0ac5-747980bf30249b734a43",
+              "file": "phase1-authentication.spec.ts",
+              "line": 691,
               "column": 7
             },
             {
-              "title": "Admin: Search and Filter Exams",
+              "title": "Remember Me Functionality",
               "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 5803,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing remember me feature...\n"
+                        },
+                        {
+                          "text": "✓ Remember me checkbox found\n"
+                        },
+                        {
+                          "text": "✓ Logged in with remember me enabled\n"
+                        },
+                        {
+                          "text": "✅ Remember me feature tested\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:04.202Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-92d282a6224aa24d7ae1",
+              "file": "phase1-authentication.spec.ts",
+              "line": 722,
+              "column": 7
+            },
+            {
+              "title": "Google Sign-In Button Presence",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1046,34 +1064,71 @@
                     {
                       "workerIndex": 5,
                       "parallelIndex": 5,
-                      "status": "passed",
-                      "duration": 7914,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 6537,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\tests\\phase1-authentication.spec.ts:760:23",
+                        "location": {
+                          "file": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\tests\\phase1-authentication.spec.ts",
+                          "column": 23,
+                          "line": 760
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 758 |\u001b[39m     \u001b[36mconst\u001b[39m isVisible \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m googleButton\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39m\u001b[36mcatch\u001b[39m(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 759 |\u001b[39m     \n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 760 |\u001b[39m     expect(isVisible)\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 761 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m'✓ Google Sign-In button is visible'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 762 |\u001b[39m     \n \u001b[90m 763 |\u001b[39m     \u001b[90m// Check button styling\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\tests\\phase1-authentication.spec.ts",
+                            "column": 23,
+                            "line": 760
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n\u001b[0m \u001b[90m 758 |\u001b[39m     \u001b[36mconst\u001b[39m isVisible \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m googleButton\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39m\u001b[36mcatch\u001b[39m(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 759 |\u001b[39m     \n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 760 |\u001b[39m     expect(isVisible)\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 761 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m'✓ Google Sign-In button is visible'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 762 |\u001b[39m     \n \u001b[90m 763 |\u001b[39m     \u001b[90m// Check button styling\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\tests\\phase1-authentication.spec.ts:760:23\u001b[22m"
+                        }
+                      ],
                       "stdout": [
                         {
-                          "text": "Testing admin search and filter...\n"
-                        },
-                        {
-                          "text": "⚠️ Search/filter not found - may not be implemented\n"
+                          "text": "Testing Google Sign-In button...\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:08:03.113Z",
+                      "startTime": "2025-11-14T20:49:04.551Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\test-results\\phase1-authentication-Phas-409eb-gle-Sign-In-Button-Presence-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\test-results\\phase1-authentication-Phas-409eb-gle-Sign-In-Button-Presence-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\test-results\\phase1-authentication-Phas-409eb-gle-Sign-In-Button-Presence-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\pteluguti\\EdtTech-mvp\\frontend\\tests\\phase1-authentication.spec.ts",
+                        "column": 23,
+                        "line": 760
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "bcf3cf958f9f93fe02b1-ed05df0c212e30f58d9a",
-              "file": "phase4-admin.spec.ts",
-              "line": 271,
+              "id": "21baf76ee29c111c0ac5-8d5f63057f0159b8e2c9",
+              "file": "phase1-authentication.spec.ts",
+              "line": 749,
               "column": 7
             },
             {
-              "title": "Admin: Exam Status Toggle (Active/Inactive)",
+              "title": "Profile Page: View Profile",
               "ok": true,
               "tags": [],
               "tests": [
@@ -1088,19 +1143,25 @@
                       "workerIndex": 6,
                       "parallelIndex": 6,
                       "status": "passed",
-                      "duration": 7170,
+                      "duration": 11038,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Testing exam status toggle...\n"
+                          "text": "Testing profile page access...\n"
                         },
                         {
-                          "text": "⚠️ Status toggle not found - may not be implemented\n"
+                          "text": "✓ Logged in successfully\n"
+                        },
+                        {
+                          "text": "✓ Profile page loads\n"
+                        },
+                        {
+                          "text": "✅ Profile page view test passed\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-11-14T19:08:03.980Z",
+                      "startTime": "2025-11-14T20:49:05.327Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1108,9 +1169,326 @@
                   "status": "expected"
                 }
               ],
-              "id": "bcf3cf958f9f93fe02b1-d15008cf035c34b7b7fc",
-              "file": "phase4-admin.spec.ts",
-              "line": 300,
+              "id": "21baf76ee29c111c0ac5-665b1ee1adf0321639c6",
+              "file": "phase1-authentication.spec.ts",
+              "line": 775,
+              "column": 7
+            },
+            {
+              "title": "Profile Page: Edit Profile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 25402,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing profile edit functionality...\n"
+                        },
+                        {
+                          "text": "✓ Navigated to profile page\n"
+                        },
+                        {
+                          "text": "✓ Edit button found\n"
+                        },
+                        {
+                          "text": "✅ Profile edit test completed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:07.166Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-2298c528238829230d3d",
+              "file": "phase1-authentication.spec.ts",
+              "line": 814,
+              "column": 7
+            },
+            {
+              "title": "Profile Page: Input Text Visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 10655,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing profile input text visibility...\n"
+                        },
+                        {
+                          "text": "✅ Input text visibility test passed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:09.709Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-7a3e59aaa75bba536c58",
+              "file": "phase1-authentication.spec.ts",
+              "line": 879,
+              "column": 7
+            },
+            {
+              "title": "Dashboard: Sidebar Navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 7015,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing dashboard sidebar navigation...\n"
+                        },
+                        {
+                          "text": "✓ Logged in and on dashboard\n"
+                        },
+                        {
+                          "text": "✓ Sidebar is visible\n"
+                        },
+                        {
+                          "text": "✅ Sidebar navigation test passed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:10.051Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-ea95e66285c9fc55aa28",
+              "file": "phase1-authentication.spec.ts",
+              "line": 923,
+              "column": 7
+            },
+            {
+              "title": "Dashboard: Enhanced Sidebar Design",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4092,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing enhanced sidebar design...\n"
+                        },
+                        {
+                          "text": "✓ Sidebar has gradient background\n"
+                        },
+                        {
+                          "text": "✓ Logout button found\n"
+                        },
+                        {
+                          "text": "✅ Enhanced sidebar design test passed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:10.810Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-b98a7b4a185cc496b259",
+              "file": "phase1-authentication.spec.ts",
+              "line": 968,
+              "column": 7
+            },
+            {
+              "title": "Login Page: Gradient Background Styling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 2817,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing login page styling...\n"
+                        },
+                        {
+                          "text": "✓ Login form is styled and visible\n"
+                        },
+                        {
+                          "text": "✅ Login page styling test passed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:16.167Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-134dc27df830b503ef28",
+              "file": "phase1-authentication.spec.ts",
+              "line": 1005,
+              "column": 7
+            },
+            {
+              "title": "Authentication: Token Storage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5155,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing authentication token storage...\n"
+                        },
+                        {
+                          "text": "✓ JWT token stored in localStorage\n"
+                        },
+                        {
+                          "text": "✓ User data stored correctly\n"
+                        },
+                        {
+                          "text": "✅ Token storage test passed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:14.948Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-fd02793a384b4ce3934a",
+              "file": "phase1-authentication.spec.ts",
+              "line": 1028,
+              "column": 7
+            },
+            {
+              "title": "Protected Routes: Dashboard Access Without Login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 10339,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Testing protected route access...\n"
+                        },
+                        {
+                          "text": "✓ Unauthorized access redirected to login\n"
+                        },
+                        {
+                          "text": "✅ Protected route test completed\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-11-14T20:49:15.315Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21baf76ee29c111c0ac5-5b3eb108dfaa61b86292",
+              "file": "phase1-authentication.spec.ts",
+              "line": 1053,
               "column": 7
             }
           ]
@@ -1120,11 +1498,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-11-14T19:07:32.862Z",
-    "duration": 38412.71,
-    "expected": 20,
+    "startTime": "2025-11-14T20:48:38.943Z",
+    "duration": 54018.037,
+    "expected": 27,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }

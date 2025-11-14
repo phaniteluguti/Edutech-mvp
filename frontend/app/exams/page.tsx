@@ -55,12 +55,12 @@ export default function ExamsPage() {
 
   return (
     <AppLayout>
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl font-bold mb-4">Choose Your Exam</h1>
-          <p className="text-xl text-purple-100">
+      <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h1 className="text-4xl font-bold text-white mb-2">Choose Your Exam</h1>
+          <p className="text-purple-200">
             AI-powered mock tests for India's most competitive exams
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function ExamsPage() {
 
       {/* Error Message */}
       {error && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
             {error}
           </div>
@@ -76,7 +76,7 @@ export default function ExamsPage() {
       )}
 
       {/* Exams Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8"
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {exams.map((exam) => (
             <div

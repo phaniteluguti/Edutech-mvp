@@ -48,13 +48,16 @@ export default function SettingsPage() {
 
   return (
     <AppLayout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Settings</h1>
-            <p className="text-gray-600">Manage your account preferences and application settings</p>
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+        {/* Header Banner */}
+        <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 py-12 px-8 mb-8">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-4xl font-bold text-white mb-2">Settings</h1>
+            <p className="text-purple-200">Manage your account preferences and application settings</p>
           </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
 
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Sidebar Navigation */}

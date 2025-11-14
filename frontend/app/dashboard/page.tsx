@@ -57,15 +57,18 @@ export default function DashboardPage() {
   return (
     <AppLayout>
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
-        <div className="p-8">
+        {/* Header Banner */}
+        <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 py-12 px-8 mb-8">
           <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                Welcome back, {user?.name}!
-              </h1>
-              <p className="text-gray-600 text-lg">Here's your learning dashboard</p>
-            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Welcome back, {user?.name}!
+            </h1>
+            <p className="text-purple-200 text-lg">Here's your learning dashboard</p>
+          </div>
+        </div>
+
+        <div className="px-8 pb-8">
+          <div className="max-w-7xl mx-auto">
 
             {/* Dashboard Content */}
             {/* Stats Cards */}

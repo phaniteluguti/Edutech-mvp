@@ -106,10 +106,10 @@ export default function TestsPage() {
 
   return (
     <AppLayout>
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       {/* Header with gradient */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div>
             <h1 className="text-4xl font-bold text-white flex items-center gap-3">
               <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,7 +117,7 @@ export default function TestsPage() {
               </svg>
               Mock Tests
             </h1>
-            <p className="mt-2 text-blue-100 text-lg">Practice with full-length mock tests</p>
+            <p className="mt-2 text-purple-200">Practice with full-length mock tests</p>
           </div>
         </div>
       </div>
