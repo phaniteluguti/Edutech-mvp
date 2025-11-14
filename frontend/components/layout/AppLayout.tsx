@@ -38,7 +38,20 @@ export default function AppLayout({ children }: AppLayoutProps) {
   };
 
   const isActive = (path: string) => {
-    return pathname === path || pathname?.startsWith(path + '/');
+    // Exact match for the current path
+    if (pathname === path) return true;
+    
+    // For child routes, check if pathname starts with path
+    // but make sure it's not a false positive (e.g., /tests vs /tests/history)
+    if (pathname?.startsWith(path + '/')) {
+      // Special case: /tests should not match /tests/history
+      if (path === '/tests' && pathname?.startsWith('/tests/history')) {
+        return false;
+      }
+      return true;
+    }
+    
+    return false;
   };
 
   const menuItems = [
