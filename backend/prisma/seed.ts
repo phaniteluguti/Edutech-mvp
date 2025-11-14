@@ -246,31 +246,197 @@ async function main() {
   });
   console.log('✅ Created 1 subscription (FREE tier)\n');
 
-  // 5. Seed Sample Mock Test with AI-generated metadata
-  console.log('🧪 Seeding Mock Test...');
+  // 5. Seed Sample Mock Test with AI-generated metadata and questions
+  console.log('🧪 Seeding Mock Test with Questions...');
   
-  await prisma.mockTest.create({
+  const mockTest = await prisma.mockTest.create({
     data: {
       examId: jeeExam.id,
       title: 'JEE Main Mock Test 1 - Mathematics',
       description: 'AI-generated mock test based on 2022-2023 previous year patterns',
-      totalQuestions: 30,
-      duration: 60,
-      difficultyMix: JSON.stringify({ easy: 10, medium: 15, hard: 5 }),
+      totalQuestions: 10,
+      duration: 30,
+      difficultyMix: JSON.stringify({ easy: 4, medium: 4, hard: 2 }),
       generatedByAI: true,
-      generationPrompt: 'Generate 30 questions similar to JEE 2022-2023 mathematics papers',
+      generationPrompt: 'Generate questions similar to JEE 2022-2023 mathematics papers',
       previousYearsUsed: 5,
     },
   });
-  console.log('✅ Created 1 mock test (AI-generated)\n');
+
+  // Add questions to the mock test
+  const mockTestQuestions = [
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 1,
+      text: 'If the sum of first n terms of an A.P. is 3n² + 5n, then which term of the A.P. is 164?',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['26th', '27th', '28th', '29th'],
+      correctAnswer: '27th',
+      explanation: 'Sum formula Sn = 3n² + 5n. nth term an = Sn - S(n-1) = 3n² + 5n - 3(n-1)² - 5(n-1) = 6n + 2. Setting 6n + 2 = 164 gives n = 27.',
+      subject: 'Mathematics',
+      topic: 'Sequences and Series',
+      subtopic: 'Arithmetic Progression',
+      difficulty: Difficulty.MEDIUM,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 2,
+      text: 'The derivative of sin²(3x) with respect to x is:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['6sin(3x)cos(3x)', '3sin(6x)', '6sin(3x)', 'Both A and B'],
+      correctAnswer: 'Both A and B',
+      explanation: 'd/dx[sin²(3x)] = 2sin(3x)·cos(3x)·3 = 6sin(3x)cos(3x) = 3sin(6x) using double angle formula.',
+      subject: 'Mathematics',
+      topic: 'Calculus',
+      subtopic: 'Differentiation',
+      difficulty: Difficulty.EASY,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 3,
+      text: 'If ∫(1/(x²-4))dx = (1/4)log|f(x)| + C, then f(x) equals:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['(x-2)/(x+2)', '(x+2)/(x-2)', 'x²-4', '1/(x²-4)'],
+      correctAnswer: '(x-2)/(x+2)',
+      explanation: 'Using partial fractions: 1/(x²-4) = (1/4)[1/(x-2) - 1/(x+2)]. Integrating gives (1/4)log|(x-2)/(x+2)| + C',
+      subject: 'Mathematics',
+      topic: 'Calculus',
+      subtopic: 'Integration',
+      difficulty: Difficulty.MEDIUM,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 4,
+      text: 'The number of ways to arrange the letters of the word "ENGINEERING" is:',
+      type: QuestionType.NUMERICAL,
+      correctAnswer: '277200',
+      explanation: 'ENGINEERING has 11 letters with E-3, N-3, G-2, I-2, R-1. Ways = 11!/(3!·3!·2!·2!) = 277200',
+      subject: 'Mathematics',
+      topic: 'Permutations and Combinations',
+      subtopic: 'Permutations with Repetition',
+      difficulty: Difficulty.HARD,
+      marks: 4,
+      negativeMarks: 0,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 5,
+      text: 'If |z₁| = |z₂| = 1 and |z₁ + z₂| = √3, then |z₁ - z₂| equals:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['1', '√2', '√3', '2'],
+      correctAnswer: '1',
+      explanation: 'Using |z₁+z₂|² + |z₁-z₂|² = 2(|z₁|² + |z₂|²). So 3 + |z₁-z₂|² = 2(1+1) = 4. Therefore |z₁-z₂| = 1',
+      subject: 'Mathematics',
+      topic: 'Complex Numbers',
+      subtopic: 'Modulus and Argument',
+      difficulty: Difficulty.MEDIUM,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 6,
+      text: 'The value of lim(x→0) [(sin(5x))/(3x)] is:',
+      type: QuestionType.NUMERICAL,
+      correctAnswer: '1.667',
+      explanation: 'lim(x→0) [sin(5x)/(3x)] = (5/3) × lim(x→0) [sin(5x)/(5x)] = (5/3) × 1 = 5/3 ≈ 1.667',
+      subject: 'Mathematics',
+      topic: 'Calculus',
+      subtopic: 'Limits',
+      difficulty: Difficulty.EASY,
+      marks: 4,
+      negativeMarks: 0,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 7,
+      text: 'The equation of the line passing through (2, 3) and perpendicular to 3x + 4y = 5 is:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['4x - 3y + 1 = 0', '4x - 3y - 1 = 0', '3x + 4y - 18 = 0', '4x + 3y - 17 = 0'],
+      correctAnswer: '4x - 3y + 1 = 0',
+      explanation: 'Slope of given line = -3/4. Perpendicular slope = 4/3. Line: y-3 = (4/3)(x-2) → 3y-9 = 4x-8 → 4x-3y+1=0',
+      subject: 'Mathematics',
+      topic: 'Coordinate Geometry',
+      subtopic: 'Straight Lines',
+      difficulty: Difficulty.EASY,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 8,
+      text: 'If vectors a⃗ = 2î + 3ĵ - k̂ and b⃗ = î - 2ĵ + 3k̂, then a⃗ · b⃗ equals:',
+      type: QuestionType.NUMERICAL,
+      correctAnswer: '-7',
+      explanation: 'a⃗ · b⃗ = (2)(1) + (3)(-2) + (-1)(3) = 2 - 6 - 3 = -7',
+      subject: 'Mathematics',
+      topic: 'Vectors',
+      subtopic: 'Dot Product',
+      difficulty: Difficulty.EASY,
+      marks: 4,
+      negativeMarks: 0,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 9,
+      text: 'The sum of the series 1 + 1/2! + 1/3! + ... to infinity is:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['e', 'e - 1', '1/e', 'e + 1'],
+      correctAnswer: 'e - 1',
+      explanation: 'This is e^x series with x=1 minus the first term. e = 1 + 1/1! + 1/2! + 1/3! + ... So given series = e - 1',
+      subject: 'Mathematics',
+      topic: 'Sequences and Series',
+      subtopic: 'Infinite Series',
+      difficulty: Difficulty.HARD,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    },
+    {
+      mockTestId: mockTest.id,
+      questionNumber: 10,
+      text: 'The general solution of the differential equation dy/dx = x/y is:',
+      type: QuestionType.SINGLE_CHOICE,
+      options: ['x² - y² = C', 'x² + y² = C', 'xy = C', 'x/y = C'],
+      correctAnswer: 'x² - y² = C',
+      explanation: 'Separating variables: y dy = x dx. Integrating both sides: y²/2 = x²/2 + C₁. Therefore x² - y² = C (where C = -2C₁)',
+      subject: 'Mathematics',
+      topic: 'Differential Equations',
+      subtopic: 'First Order Differential Equations',
+      difficulty: Difficulty.MEDIUM,
+      marks: 4,
+      negativeMarks: -1,
+      generatedByAI: false,
+    }
+  ];
+
+  await prisma.question.createMany({
+    data: mockTestQuestions
+  });
+
+  console.log(`✅ Created 1 mock test with ${mockTestQuestions.length} questions\n`);
 
   console.log('🎉 Database seeding completed successfully!\n');
   console.log('📊 Summary:');
   console.log(`   - Previous Year Questions: ${previousYearQuestions.length}`);
-  console.log('   - Exams: 2 (JEE Main, NEET UG)');
+  console.log('   - Exams: 4 (JEE Main, NEET UG, GATE CS, CAT)');
   console.log('   - Users: 3 (Student, Admin, SME)');
   console.log('   - Subscriptions: 1 (FREE tier)');
-  console.log('   - Mock Tests: 1 (AI-generated)');
+  console.log('   - Mock Tests: 1 with 10 questions');
   console.log('\n✅ Ready for testing!\n');
 }
 
