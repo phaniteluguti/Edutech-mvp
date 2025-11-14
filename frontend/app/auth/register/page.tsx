@@ -59,24 +59,44 @@ export default function RegisterPage() {
 
     try {
       // Ensure date is in ISO format (YYYY-MM-DD)
-      const formattedData = {
-        ...formData,
-        dateOfBirth: formData.dateOfBirth, // HTML date input already returns ISO format
+      // HTML date input already returns ISO format, but let's be explicit
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        dateOfBirth: formData.dateOfBirth, // Already in YYYY-MM-DD from input[type="date"]
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        ...(showParentEmail && { parentEmail: formData.parentEmail })
       };
+
+      console.log('Sending registration data:', payload); // Debug log
 
       const response = await fetch('http://localhost:4000/api/v1/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formattedData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
+        console.error('Registration error:', data); // Debug log
+        
+        // Handle validation errors with details
+        if (data.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+          const errorMessages = data.errors.map((err: any) => 
+            `${err.field.replace('body.', '')}: ${err.message}`
+          ).join(', ');
+          throw new Error(errorMessages);
+        }
+        
         throw new Error(data.message || 'Registration failed');
       }
+
+      console.log('Registration success:', data); // Debug log
 
       // Store token
       localStorage.setItem('token', data.data.token);
@@ -90,7 +110,15 @@ export default function RegisterPage() {
         router.push('/dashboard');
       }
     } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+      console.error('Registration failed:', err); // Debug log
+      
+      // Extract error message from response
+      let errorMessage = 'Something went wrong';
+      if (err.message) {
+        errorMessage = err.message;
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

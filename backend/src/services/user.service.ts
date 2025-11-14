@@ -36,7 +36,10 @@ export class UserService {
    * Create a new user
    */
   async createUser(data: CreateUserInput): Promise<User> {
-    const { password, dateOfBirth, ...rest } = data;
+    const { password, dateOfBirth, email, ...rest } = data;
+
+    // Normalize email to lowercase
+    const normalizedEmail = email.toLowerCase();
 
     // Hash password
     const passwordHash = await hashPassword(password);
@@ -45,26 +48,41 @@ export class UserService {
     const isMinor = dateOfBirth ? this.calculateAge(dateOfBirth) < 18 : false;
 
     // Create user
-    const user = await prisma.user.create({
-      data: {
-        ...rest,
-        passwordHash,
-        dateOfBirth,
-        isMinor,
-        consentGivenAt: new Date(),
-        consentVersion: '1.0',
-      },
-    });
+    try {
+      const user = await prisma.user.create({
+        data: {
+          ...rest,
+          email: normalizedEmail,
+          passwordHash,
+          dateOfBirth,
+          isMinor,
+          consentGivenAt: new Date(),
+          consentVersion: '1.0',
+        },
+      });
 
-    return user;
+      return user;
+    } catch (error: any) {
+      // Handle unique constraint violations
+      if (error.code === 'P2002') {
+        const field = error.meta?.target?.[0];
+        if (field === 'email') {
+          throw new Error('An account with this email already exists');
+        } else if (field === 'phone') {
+          throw new Error('An account with this phone number already exists');
+        }
+        throw new Error('An account with this information already exists');
+      }
+      throw error;
+    }
   }
 
   /**
-   * Find user by email
+   * Find user by email (case-insensitive)
    */
   async findByEmail(email: string): Promise<User | null> {
     return prisma.user.findUnique({
-      where: { email },
+      where: { email: email.toLowerCase() },
       include: {
         subscriptions: {
           where: { status: 'ACTIVE' },
