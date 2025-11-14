@@ -62,6 +62,7 @@ export default function DashboardPage() {
   const menuItems = [
     { id: 'home', icon: '🏠', label: 'Home', badge: null },
     { id: 'exams', icon: '📝', label: 'Browse Exams', badge: null },
+    { id: 'tests', icon: '🎯', label: 'Mock Tests', badge: null },
     { id: 'materials', icon: '📚', label: 'Study Materials', badge: 'Soon' },
     { id: 'ai-chat', icon: '🤖', label: 'AI Assistant', badge: 'Soon' },
     { id: 'analytics', icon: '📊', label: 'Analytics', badge: 'Soon' },
@@ -324,6 +325,10 @@ export default function DashboardPage() {
           {activeTab === 'exams' && (
             <ExamsContent />
           )}
+
+          {activeTab === 'tests' && (
+            <TestsContent />
+          )}
         </div>
       </main>
     </div>
@@ -470,6 +475,37 @@ function ExamsContent() {
           <p className="mt-2 text-sm text-gray-500">Check back soon for new exam options.</p>
         </div>
       )}
+    </div>
+  );
+}
+
+// Tests Content Component
+function TestsContent() {
+  const router = useRouter();
+
+  return (
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Mock Tests</h1>
+        <p className="text-gray-600">
+          Take full-length mock tests to prepare for your exams
+        </p>
+      </div>
+
+      <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8 text-center">
+        <div className="text-6xl mb-4">🎯</div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Test Your Knowledge?</h2>
+        <p className="text-gray-600 mb-6 max-w-xl mx-auto">
+          Practice with full-length mock tests that simulate real exam conditions. 
+          Get detailed analytics and improve your performance.
+        </p>
+        <button
+          onClick={() => router.push('/tests')}
+          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          View All Tests →
+        </button>
+      </div>
     </div>
   );
 }
