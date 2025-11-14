@@ -1,0 +1,658 @@
+openapi: 3.0.3
+info:
+  title: Tests API
+  version: 1.0.0
+
+paths:
+  /tests:
+    get:
+      tags:
+        - Tests
+      summary: List available mock tests
+      description: Get paginated list of available tests filtered by exam type
+      operationId: listTests
+      parameters:
+        - name: examType
+          in: query
+          schema:
+            type: string
+            enum: [IIT_JEE, NEET]
+          example: IIT_JEE
+          description: Filter by exam type
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum: [EASY, MEDIUM, HARD]
+          example: MEDIUM
+          description: Filter by difficulty
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+          example: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          example: 0
+      responses:
+        '200':
+          description: List of tests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MockTest'
+                  total:
+                    type: integer
+                    example: 50
+                  limit:
+                    type: integer
+                    example: 20
+                  offset:
+                    type: integer
+                    example: 0
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /tests/{testId}:
+    get:
+      tags:
+        - Tests
+      summary: Get test details
+      description: Get metadata for a specific test (questions included after starting)
+      operationId: getTest
+      parameters:
+        - name: testId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440001
+      responses:
+        '200':
+          description: Test details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MockTest'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+  
+  /tests/{testId}/start:
+    post:
+      tags:
+        - Tests
+      summary: Start a test
+      description: |
+        Start a new test attempt. Returns full test with questions.
+        
+        **Subscription Checks**:
+        - FREE: 1 test remaining → Allow
+        - BUNDLE: testsRemaining > 0 → Allow
+        - UNLIMITED: validUntil > now → Allow
+        - GRACE_PERIOD: Limited access (1 test/day max)
+      operationId: startTest
+      parameters:
+        - name: testId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deviceId:
+                  type: string
+                  example: device_abc123
+                  description: Optional device identifier for offline sync
+      responses:
+        '201':
+          description: Test started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestAttempt'
+        '400':
+          description: Test already attempted by user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: TEST_ALREADY_ATTEMPTED
+                      message:
+                        type: string
+                        example: You have already attempted this test
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '403':
+          description: Subscription required or expired
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: SUBSCRIPTION_REQUIRED
+                      message:
+                        type: string
+                        example: Active subscription required. Please upgrade.
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+  
+  /tests/attempts/{attemptId}:
+    get:
+      tags:
+        - Tests
+      summary: Get test attempt status
+      description: Get current state of an ongoing or completed test attempt
+      operationId: getTestAttempt
+      parameters:
+        - name: attemptId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+      responses:
+        '200':
+          description: Test attempt details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestAttempt'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+  
+  /tests/attempts/{attemptId}/responses:
+    put:
+      tags:
+        - Tests
+      summary: Update test responses
+      description: |
+        Save user's answer to a question. Supports real-time sync across devices.
+        
+        **Conflict Resolution**:
+        - Server timestamp always wins
+        - Optimistic locking via version number
+        - Returns 409 if version mismatch (stale update)
+      operationId: updateTestResponse
+      parameters:
+        - name: attemptId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - questionNumber
+                - selectedOption
+                - version
+              properties:
+                questionNumber:
+                  type: integer
+                  minimum: 1
+                  maximum: 75
+                  example: 15
+                selectedOption:
+                  type: integer
+                  minimum: 0
+                  maximum: 3
+                  example: 2
+                  description: Index of selected option (0-3)
+                version:
+                  type: integer
+                  example: 5
+                  description: Current version from client (optimistic locking)
+                clientTimestamp:
+                  type: string
+                  format: date-time
+                  example: '2025-11-14T16:30:00Z'
+                  description: Client timestamp for conflict detection
+      responses:
+        '200':
+          description: Response saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: integer
+                    example: 6
+                    description: New version after update
+                  serverTimestamp:
+                    type: string
+                    format: date-time
+                    example: '2025-11-14T16:30:01.234Z'
+                  responses:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                    example:
+                      '1': 0
+                      '5': 3
+                      '15': 2
+                    description: All current responses (questionNumber → selectedOption)
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+        '409':
+          description: Conflict - stale update detected
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: CONFLICT
+                      message:
+                        type: string
+                        example: Stale update, please refresh from server
+                  currentVersion:
+                    type: integer
+                    example: 8
+                  serverTimestamp:
+                    type: string
+                    format: date-time
+                  responses:
+                    type: object
+                    additionalProperties:
+                      type: integer
+  
+  /tests/attempts/{attemptId}/submit:
+    post:
+      tags:
+        - Tests
+      summary: Submit test for scoring
+      description: |
+        Submit completed test. Triggers scoring and percentile calculation.
+        
+        **Actions**:
+        1. Mark test as SUBMITTED
+        2. Calculate score, accuracy
+        3. Calculate percentile (compared to all attempts of same test)
+        4. Identify weak areas (accuracy < 60%)
+        5. Update subscription testsRemaining (bundles only)
+      operationId: submitTest
+      parameters:
+        - name: attemptId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - version
+              properties:
+                version:
+                  type: integer
+                  example: 10
+                  description: Final version for optimistic locking
+                timeSpent:
+                  type: integer
+                  example: 9600
+                  description: Total time spent in seconds
+      responses:
+        '200':
+          description: Test submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attemptId:
+                    type: string
+                    format: uuid
+                    example: 650e8400-e29b-41d4-a716-446655440002
+                  status:
+                    type: string
+                    enum: [SUBMITTED, SCORED]
+                    example: SCORED
+                  message:
+                    type: string
+                    example: Test submitted and scored successfully
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+        '409':
+          $ref: '../openapi.yaml#/components/responses/ValidationError'
+  
+  /tests/attempts/{attemptId}/results:
+    get:
+      tags:
+        - Tests
+      summary: Get test results
+      description: Get detailed results with score, percentile, weak areas
+      operationId: getTestResults
+      parameters:
+        - name: attemptId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+      responses:
+        '200':
+          description: Test results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResult'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+        '409':
+          description: Test not yet submitted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: TEST_NOT_SUBMITTED
+                      message:
+                        type: string
+                        example: Test results not available until submission
+
+components:
+  schemas:
+    MockTest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440001
+        exam:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+              example: IIT-JEE Main
+            type:
+              type: string
+              enum: [IIT_JEE, NEET]
+              example: IIT_JEE
+            totalQuestions:
+              type: integer
+              example: 75
+            totalMarks:
+              type: integer
+              example: 300
+            durationMinutes:
+              type: integer
+              example: 180
+        difficulty:
+          type: string
+          enum: [EASY, MEDIUM, HARD]
+          example: MEDIUM
+        generatedBy:
+          type: string
+          example: azure_openai_gpt5
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T00:00:00Z'
+        attempted:
+          type: boolean
+          example: false
+          description: Whether current user has attempted this test
+    
+    TestAttempt:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+        mockTestId:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440001
+        status:
+          type: string
+          enum: [IN_PROGRESS, SUBMITTED, SCORED, ABANDONED]
+          example: IN_PROGRESS
+        startedAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T16:00:00Z'
+        submittedAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T19:00:00Z'
+          nullable: true
+        serverTimestamp:
+          type: string
+          format: date-time
+          example: '2025-11-14T16:30:01.234Z'
+          description: Last server update timestamp
+        version:
+          type: integer
+          example: 10
+          description: Current version for optimistic locking
+        responses:
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            '1': 0
+            '5': 3
+            '15': 2
+          description: User responses (questionNumber → selectedOption)
+        deviceId:
+          type: string
+          example: device_abc123
+          nullable: true
+        syncStatus:
+          type: string
+          enum: [PENDING, SYNCING, SYNCED, ERROR]
+          example: SYNCED
+        mockTest:
+          type: object
+          description: Full test with questions (only on start)
+          properties:
+            id:
+              type: string
+              format: uuid
+            exam:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: IIT-JEE Main
+                totalMarks:
+                  type: integer
+                  example: 300
+                durationMinutes:
+                  type: integer
+                  example: 180
+            questions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Question'
+    
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 750e8400-e29b-41d4-a716-446655440003
+        questionNumber:
+          type: integer
+          example: 1
+        text:
+          type: string
+          example: A ball is thrown vertically upward with a velocity of 20 m/s. What is the maximum height reached?
+        options:
+          type: array
+          items:
+            type: string
+          example:
+            - 10 m
+            - 20 m
+            - 30 m
+            - 40 m
+        imageUrl:
+          type: string
+          format: uri
+          example: https://storage.edutech.com/questions/abc123.webp
+          nullable: true
+        metadata:
+          type: object
+          properties:
+            topic:
+              type: string
+              example: Physics
+            subtopic:
+              type: string
+              example: Mechanics
+            marks:
+              type: integer
+              example: 4
+            bloomLevel:
+              type: string
+              example: Apply
+    
+    TestResult:
+      type: object
+      properties:
+        attemptId:
+          type: string
+          format: uuid
+          example: 650e8400-e29b-41d4-a716-446655440002
+        mockTestId:
+          type: string
+          format: uuid
+        examName:
+          type: string
+          example: IIT-JEE Main
+        submittedAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T19:00:00Z'
+        score:
+          type: integer
+          example: 240
+        totalMarks:
+          type: integer
+          example: 300
+        accuracy:
+          type: number
+          format: decimal
+          example: 80.00
+          description: Percentage of correct answers
+        percentile:
+          type: number
+          format: decimal
+          example: 85.50
+          description: User's percentile compared to all test takers
+        timeSpent:
+          type: integer
+          example: 9600
+          description: Total time in seconds
+        responses:
+          type: array
+          items:
+            type: object
+            properties:
+              questionNumber:
+                type: integer
+                example: 1
+              selectedOption:
+                type: integer
+                example: 1
+                nullable: true
+                description: null if not attempted
+              correctOption:
+                type: integer
+                example: 1
+              isCorrect:
+                type: boolean
+                example: true
+              question:
+                $ref: '#/components/schemas/Question'
+              explanation:
+                type: string
+                example: Using v² = u² + 2as, where v=0 (at max height), u=20, a=-10...
+        weakAreas:
+          type: array
+          items:
+            type: object
+            properties:
+              topic:
+                type: string
+                example: Thermodynamics
+              accuracy:
+                type: number
+                format: decimal
+                example: 50.00
+              questionsAttempted:
+                type: integer
+                example: 10
+              questionsCorrect:
+                type: integer
+                example: 5

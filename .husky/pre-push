@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running pre-push checks..."
+
+# Run tests if they exist
+if [ -f "backend/package.json" ]; then
+  echo "Running backend tests..."
+  cd backend && npm test -- --watchAll=false
+  if [ $? -ne 0 ]; then
+    echo "Backend tests failed."
+    exit 1
+  fi
+  cd ..
+fi
+
+echo "Pre-push checks passed!"

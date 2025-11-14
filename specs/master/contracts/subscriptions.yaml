@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: Subscriptions & Payments API
+  version: 1.0.0
+
+paths:
+  /subscriptions:
+    get:
+      tags:
+        - Subscriptions
+      summary: Get user's subscriptions
+      description: Get all subscriptions (current + historical)
+      operationId: getUserSubscriptions
+      responses:
+        '200':
+          description: User's subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current:
+                    $ref: '#/components/schemas/Subscription'
+                    nullable: true
+                  history:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+    
+    post:
+      tags:
+        - Subscriptions
+      summary: Create subscription (initiate payment)
+      description: |
+        Create new subscription. Returns Razorpay order for payment.
+        
+        **Pricing**:
+        - FREE: ₹0 (auto-assigned on signup)
+        - BUNDLE_10: ₹499
+        - BUNDLE_25: ₹999
+        - BUNDLE_50: ₹1699
+        - UNLIMITED_1M: ₹799
+        - UNLIMITED_6M: ₹3999 (₹666/month)
+        - UNLIMITED_1Y: ₹6999 (₹583/month)
+      operationId: createSubscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tier
+              properties:
+                tier:
+                  type: string
+                  enum: [BUNDLE_10, BUNDLE_25, BUNDLE_50, UNLIMITED_1M, UNLIMITED_6M, UNLIMITED_1Y]
+                  example: BUNDLE_10
+      responses:
+        '201':
+          description: Subscription created, payment required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subscription:
+                    $ref: '#/components/schemas/Subscription'
+                  razorpayOrder:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                        example: order_MhJk9L4T6UzVYd
+                      amount:
+                        type: integer
+                        example: 49900
+                        description: Amount in paise (₹499.00)
+                      currency:
+                        type: string
+                        example: INR
+                      keyId:
+                        type: string
+                        example: rzp_test_abc123
+                        description: Razorpay public key
+        '400':
+          $ref: '../openapi.yaml#/components/responses/ValidationError'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /subscriptions/{subscriptionId}:
+    get:
+      tags:
+        - Subscriptions
+      summary: Get subscription details
+      operationId: getSubscription
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+    
+    delete:
+      tags:
+        - Subscriptions
+      summary: Cancel subscription
+      description: Cancel active subscription (immediate effect, no refund)
+      operationId: cancelSubscription
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Subscription cancelled
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+  
+  /subscriptions/{subscriptionId}/upgrade:
+    post:
+      tags:
+        - Subscriptions
+      summary: Upgrade subscription
+      description: |
+        Upgrade to higher tier. Existing subscription cancelled, new one created.
+        Pro-rated credit applied (bundle tests remaining converted to ₹ credit).
+      operationId: upgradeSubscription
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - newTier
+              properties:
+                newTier:
+                  type: string
+                  enum: [BUNDLE_10, BUNDLE_25, BUNDLE_50, UNLIMITED_1M, UNLIMITED_6M, UNLIMITED_1Y]
+                  example: UNLIMITED_1M
+      responses:
+        '201':
+          description: Upgrade initiated, payment required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  newSubscription:
+                    $ref: '#/components/schemas/Subscription'
+                  credit:
+                    type: number
+                    format: decimal
+                    example: 150.00
+                    description: Pro-rated credit from old subscription
+                  razorpayOrder:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                      amount:
+                        type: integer
+                        description: Amount after credit applied (paise)
+                      currency:
+                        type: string
+                      keyId:
+                        type: string
+        '400':
+          description: Invalid upgrade (e.g., downgrade not allowed, same tier)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: INVALID_UPGRADE
+                      message:
+                        type: string
+                        example: Cannot downgrade to lower tier
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '../openapi.yaml#/components/responses/NotFoundError'
+  
+  /payments/orders:
+    post:
+      tags:
+        - Subscriptions
+      summary: Create Razorpay order
+      description: |
+        Create payment order for subscription (alternative to POST /subscriptions).
+        Used when re-attempting failed payment.
+      operationId: createPaymentOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - subscriptionId
+              properties:
+                subscriptionId:
+                  type: string
+                  format: uuid
+                  example: 850e8400-e29b-41d4-a716-446655440004
+      responses:
+        '201':
+          description: Payment order created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  razorpayOrder:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                        example: order_MhJk9L4T6UzVYd
+                      amount:
+                        type: integer
+                        example: 49900
+                      currency:
+                        type: string
+                        example: INR
+                      keyId:
+                        type: string
+                        example: rzp_test_abc123
+        '400':
+          $ref: '../openapi.yaml#/components/responses/ValidationError'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /payments/verify:
+    post:
+      tags:
+        - Subscriptions
+      summary: Verify payment completion
+      description: |
+        Verify Razorpay payment signature and activate subscription.
+        Called by frontend after successful payment.
+      operationId: verifyPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - razorpayOrderId
+                - razorpayPaymentId
+                - razorpaySignature
+              properties:
+                razorpayOrderId:
+                  type: string
+                  example: order_MhJk9L4T6UzVYd
+                razorpayPaymentId:
+                  type: string
+                  example: pay_MhJk9L4T6UzVYe
+                razorpaySignature:
+                  type: string
+                  example: 5f8e5e0e5a5e5e5e5e5e5e5e5e5e5e5e
+      responses:
+        '200':
+          description: Payment verified, subscription activated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subscription:
+                    $ref: '#/components/schemas/Subscription'
+                  transaction:
+                    $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: INVALID_SIGNATURE
+                      message:
+                        type: string
+                        example: Payment verification failed
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /webhooks/razorpay:
+    post:
+      tags:
+        - Subscriptions
+      summary: Razorpay webhook handler
+      description: |
+        Handles Razorpay webhooks for payment events.
+        
+        **Events**:
+        - payment.captured → Activate subscription
+        - payment.failed → Update transaction status
+        - refund.created → Process refund
+        
+        **Security**: Verifies X-Razorpay-Signature header
+      operationId: razorpayWebhook
+      security: []
+      parameters:
+        - name: X-Razorpay-Signature
+          in: header
+          required: true
+          schema:
+            type: string
+          example: 5f8e5e0e5a5e5e5e5e5e5e5e5e5e5e5e
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  example: payment.captured
+                payload:
+                  type: object
+                  properties:
+                    payment:
+                      type: object
+                      properties:
+                        entity:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: pay_MhJk9L4T6UzVYe
+                            order_id:
+                              type: string
+                              example: order_MhJk9L4T6UzVYd
+                            amount:
+                              type: integer
+                              example: 49900
+                            status:
+                              type: string
+                              example: captured
+      responses:
+        '200':
+          description: Webhook processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+        '400':
+          description: Invalid signature or payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid signature
+
+components:
+  schemas:
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 850e8400-e29b-41d4-a716-446655440004
+        userId:
+          type: string
+          format: uuid
+        tier:
+          type: string
+          enum: [FREE, BUNDLE_10, BUNDLE_25, BUNDLE_50, UNLIMITED_1M, UNLIMITED_6M, UNLIMITED_1Y]
+          example: BUNDLE_10
+        status:
+          type: string
+          enum: [PENDING, ACTIVE, EXPIRED, GRACE_PERIOD, CANCELLED]
+          example: ACTIVE
+        validFrom:
+          type: string
+          format: date-time
+          example: '2025-11-14T00:00:00Z'
+        validUntil:
+          type: string
+          format: date-time
+          example: '2026-11-14T23:59:59Z'
+          nullable: true
+          description: null for bundle tiers
+        testsRemaining:
+          type: integer
+          example: 7
+          nullable: true
+          description: null for unlimited tiers
+        amount:
+          type: number
+          format: decimal
+          example: 499.00
+        currency:
+          type: string
+          example: INR
+        graceExpiresAt:
+          type: string
+          format: date-time
+          example: '2026-11-21T23:59:59Z'
+          nullable: true
+          description: validUntil + 7 days (for time-based subscriptions)
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 950e8400-e29b-41d4-a716-446655440005
+        subscriptionId:
+          type: string
+          format: uuid
+        razorpayOrderId:
+          type: string
+          example: order_MhJk9L4T6UzVYd
+        razorpayPaymentId:
+          type: string
+          example: pay_MhJk9L4T6UzVYe
+          nullable: true
+        amount:
+          type: number
+          format: decimal
+          example: 499.00
+        currency:
+          type: string
+          example: INR
+        status:
+          type: string
+          enum: [PENDING, PROCESSING, SUCCESS, FAILED, REFUNDED]
+          example: SUCCESS
+        failureReason:
+          type: string
+          example: Insufficient funds
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true

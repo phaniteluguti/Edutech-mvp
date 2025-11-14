@@ -1,0 +1,121 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: edutech-postgres
+    environment:
+      POSTGRES_USER: edutech
+      POSTGRES_PASSWORD: edutech
+      POSTGRES_DB: edutech
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edutech"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: edutech-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # MinIO (S3-compatible storage for development)
+  minio:
+    image: minio/minio:latest
+    container_name: edutech-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniopass123
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # AI Service (Python FastAPI)
+  ai-service:
+    build: ./ai-service
+    container_name: edutech-ai
+    image: edutech-ai:local
+    ports:
+      - "8001:8001"
+    environment:
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_KEY=${AZURE_OPENAI_KEY}
+      - AZURE_OPENAI_DEPLOYMENT=${AZURE_OPENAI_DEPLOYMENT:-gpt-4}
+      - REDIS_URL=redis://redis:6379
+      - ALLOWED_ORIGINS=http://localhost:4000,http://localhost:3000
+    volumes:
+      - ./ai-service:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Backend API (Node.js + Express + Prisma)
+  backend:
+    build: ./backend
+    container_name: edutech-backend
+    image: edutech-backend:local
+    command: ["npm", "run", "dev"]
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://edutech:edutech@postgres:5432/edutech
+      - REDIS_URL=redis://redis:6379
+      - AI_SERVICE_URL=http://ai-service:8001
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      - NODE_ENV=development
+      - PORT=4000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+    restart: unless-stopped
+
+  # Frontend (Next.js 15 + React 19)
+  frontend:
+    build: ./frontend
+    container_name: edutech-frontend
+    image: edutech-frontend:local
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  minio-data:

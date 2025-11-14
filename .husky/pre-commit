@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run linting and formatting
+echo "Running pre-commit checks..."
+
+# Backend
+if git diff --cached --name-only | grep -q '^backend/'; then
+  echo "Checking backend..."
+  cd backend && npm run lint && npm run format:check
+  if [ $? -ne 0 ]; then
+    echo "Backend lint/format failed. Run 'npm run format' to fix."
+    exit 1
+  fi
+  cd ..
+fi
+
+# Frontend
+if git diff --cached --name-only | grep -q '^frontend/'; then
+  echo "Checking frontend..."
+  cd frontend && npm run lint && npm run format:check
+  if [ $? -ne 0 ]; then
+    echo "Frontend lint/format failed. Run 'npm run format' to fix."
+    exit 1
+  fi
+  cd ..
+fi
+
+# Mobile
+if git diff --cached --name-only | grep -q '^mobile/'; then
+  echo "Checking mobile..."
+  cd mobile && npm run lint
+  if [ $? -ne 0 ]; then
+    echo "Mobile lint failed."
+    exit 1
+  fi
+  cd ..
+fi
+
+# AI Service
+if git diff --cached --name-only | grep -q '^ai-service/'; then
+  echo "Checking AI service..."
+  cd ai-service
+  if [ -d "venv" ]; then
+    source venv/bin/activate || . venv/Scripts/activate
+    flake8 . && black --check .
+    if [ $? -ne 0 ]; then
+      echo "AI service lint/format failed. Run 'black .' to fix."
+      exit 1
+    fi
+    deactivate
+  fi
+  cd ..
+fi
+
+echo "Pre-commit checks passed!"

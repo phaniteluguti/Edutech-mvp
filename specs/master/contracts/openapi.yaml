@@ -1,0 +1,228 @@
+openapi: 3.0.3
+info:
+  title: EduTech Platform API
+  description: |
+    AI-powered mock test platform for IIT-JEE and NEET preparation.
+    
+    **Base URL**: `https://api.edutech.com/v1`
+    
+    **Authentication**: Bearer token (JWT) in `Authorization` header.
+    
+    **Rate Limiting**:
+    - Auth endpoints: 100 requests/minute per IP
+    - General endpoints: 1000 requests/minute per user
+    
+    **Error Format**:
+    ```json
+    {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Invalid email format",
+        "details": [{ "field": "email", "issue": "must be valid email" }]
+      }
+    }
+    ```
+  version: 1.0.0
+  contact:
+    email: dev@edutech.com
+
+servers:
+  - url: https://api.edutech.com/v1
+    description: Production
+  - url: https://api.staging.edutech.com/v1
+    description: Staging
+  - url: http://localhost:3000/v1
+    description: Local development
+
+tags:
+  - name: Auth
+    description: Authentication and user management
+  - name: Tests
+    description: Mock test operations
+  - name: Analytics
+    description: Performance analytics and insights
+  - name: Subscriptions
+    description: Payment and subscription management
+
+paths:
+  # Authentication
+  /auth/register:
+    $ref: './auth.yaml#/paths/~1auth~1register'
+  
+  /auth/login:
+    $ref: './auth.yaml#/paths/~1auth~1login'
+  
+  /auth/logout:
+    $ref: './auth.yaml#/paths/~1auth~1logout'
+  
+  /auth/password/reset:
+    $ref: './auth.yaml#/paths/~1auth~1password~1reset'
+  
+  /auth/password/reset/confirm:
+    $ref: './auth.yaml#/paths/~1auth~1password~1reset~1confirm'
+  
+  /auth/consent:
+    $ref: './auth.yaml#/paths/~1auth~1consent'
+  
+  # Tests
+  /tests:
+    $ref: './tests.yaml#/paths/~1tests'
+  
+  /tests/{testId}:
+    $ref: './tests.yaml#/paths/~1tests~1{testId}'
+  
+  /tests/{testId}/start:
+    $ref: './tests.yaml#/paths/~1tests~1{testId}~1start'
+  
+  /tests/attempts/{attemptId}:
+    $ref: './tests.yaml#/paths/~1tests~1attempts~1{attemptId}'
+  
+  /tests/attempts/{attemptId}/responses:
+    $ref: './tests.yaml#/paths/~1tests~1attempts~1{attemptId}~1responses'
+  
+  /tests/attempts/{attemptId}/submit:
+    $ref: './tests.yaml#/paths/~1tests~1attempts~1{attemptId}~1submit'
+  
+  /tests/attempts/{attemptId}/results:
+    $ref: './tests.yaml#/paths/~1tests~1attempts~1{attemptId}~1results'
+  
+  # Analytics
+  /analytics/weak-areas:
+    $ref: './analytics.yaml#/paths/~1analytics~1weak-areas'
+  
+  /analytics/progress:
+    $ref: './analytics.yaml#/paths/~1analytics~1progress'
+  
+  /analytics/percentile:
+    $ref: './analytics.yaml#/paths/~1analytics~1percentile'
+  
+  # Subscriptions
+  /subscriptions:
+    $ref: './subscriptions.yaml#/paths/~1subscriptions'
+  
+  /subscriptions/{subscriptionId}:
+    $ref: './subscriptions.yaml#/paths/~1subscriptions~1{subscriptionId}'
+  
+  /subscriptions/{subscriptionId}/upgrade:
+    $ref: './subscriptions.yaml#/paths/~1subscriptions~1{subscriptionId}~1upgrade'
+  
+  /payments/orders:
+    $ref: './subscriptions.yaml#/paths/~1payments~1orders'
+  
+  /payments/verify:
+    $ref: './subscriptions.yaml#/paths/~1payments~1verify'
+  
+  /webhooks/razorpay:
+    $ref: './subscriptions.yaml#/paths/~1webhooks~1razorpay'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from `/auth/login`
+
+  responses:
+    UnauthorizedError:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: UNAUTHORIZED
+                  message:
+                    type: string
+                    example: Invalid or expired token
+    
+    ForbiddenError:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: FORBIDDEN
+                  message:
+                    type: string
+                    example: Subscription required to access this resource
+    
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: NOT_FOUND
+                  message:
+                    type: string
+                    example: Test not found
+    
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: VALIDATION_ERROR
+                  message:
+                    type: string
+                    example: Invalid request parameters
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: email
+                        issue:
+                          type: string
+                          example: must be valid email address
+    
+    RateLimitError:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: RATE_LIMIT_EXCEEDED
+                  message:
+                    type: string
+                    example: Too many requests, try again in 60 seconds
+              retryAfter:
+                type: integer
+                example: 60
+                description: Seconds until rate limit resets
+
+security:
+  - BearerAuth: []

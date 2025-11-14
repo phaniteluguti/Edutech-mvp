@@ -1,0 +1,234 @@
+openapi: 3.0.3
+info:
+  title: Analytics API
+  version: 1.0.0
+
+paths:
+  /analytics/weak-areas:
+    get:
+      tags:
+        - Analytics
+      summary: Get user's weak areas
+      description: |
+        Get topics/subtopics where user accuracy < 60%.
+        Ordered by accuracy ascending (weakest first).
+      operationId: getWeakAreas
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+          example: 10
+      responses:
+        '200':
+          description: List of weak areas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  weakAreas:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WeakArea'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /analytics/progress:
+    get:
+      tags:
+        - Analytics
+      summary: Get learning progress over time
+      description: |
+        Track score, accuracy, percentile trends across test attempts.
+        Supports filtering by exam type and time range.
+      operationId: getLearningProgress
+      parameters:
+        - name: examType
+          in: query
+          schema:
+            type: string
+            enum: [IIT_JEE, NEET]
+          example: IIT_JEE
+          description: Filter by exam type
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+          example: '2025-10-01'
+          description: Start date (ISO 8601)
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+          example: '2025-11-14'
+          description: End date (ISO 8601)
+      responses:
+        '200':
+          description: Progress data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attempts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attemptId:
+                          type: string
+                          format: uuid
+                        examName:
+                          type: string
+                          example: IIT-JEE Main
+                        submittedAt:
+                          type: string
+                          format: date-time
+                        score:
+                          type: integer
+                          example: 240
+                        totalMarks:
+                          type: integer
+                          example: 300
+                        accuracy:
+                          type: number
+                          format: decimal
+                          example: 80.00
+                        percentile:
+                          type: number
+                          format: decimal
+                          example: 85.50
+                  summary:
+                    type: object
+                    properties:
+                      totalTests:
+                        type: integer
+                        example: 15
+                      averageScore:
+                        type: number
+                        format: decimal
+                        example: 225.50
+                      averageAccuracy:
+                        type: number
+                        format: decimal
+                        example: 75.17
+                      averagePercentile:
+                        type: number
+                        format: decimal
+                        example: 78.25
+                      improvement:
+                        type: object
+                        description: Change from first to last test
+                        properties:
+                          scoreChange:
+                            type: number
+                            example: 45.0
+                            description: Positive = improvement
+                          accuracyChange:
+                            type: number
+                            example: 12.5
+                          percentileChange:
+                            type: number
+                            example: 20.0
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /analytics/percentile:
+    get:
+      tags:
+        - Analytics
+      summary: Get percentile distribution
+      description: |
+        Get user's percentile rank compared to all test takers for a specific exam.
+        Includes histogram data for visualization.
+      operationId: getPercentileDistribution
+      parameters:
+        - name: examType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [IIT_JEE, NEET]
+          example: IIT_JEE
+      responses:
+        '200':
+          description: Percentile distribution
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userPercentile:
+                    type: number
+                    format: decimal
+                    example: 85.50
+                    description: User's average percentile across all attempts
+                  distribution:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        percentileRange:
+                          type: string
+                          example: '80-90'
+                          description: Percentile bucket
+                        count:
+                          type: integer
+                          example: 1250
+                          description: Number of test attempts in this bucket
+                        percentage:
+                          type: number
+                          format: decimal
+                          example: 12.50
+                          description: % of total attempts in this bucket
+                  totalAttempts:
+                    type: integer
+                    example: 10000
+                    description: Total attempts across all users for this exam
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+
+components:
+  schemas:
+    WeakArea:
+      type: object
+      properties:
+        topic:
+          type: string
+          example: Thermodynamics
+        subtopic:
+          type: string
+          example: Laws of Thermodynamics
+          nullable: true
+        accuracy:
+          type: number
+          format: decimal
+          example: 45.50
+          description: Percentage of correct answers
+        questionsAttempted:
+          type: integer
+          example: 22
+        questionsCorrect:
+          type: integer
+          example: 10
+        lastPracticedAt:
+          type: string
+          format: date-time
+          example: '2025-11-10T18:30:00Z'
+          nullable: true
+        improvementRate:
+          type: number
+          format: decimal
+          example: 8.25
+          nullable: true
+          description: Percentage improvement over last 3 tests
+        recommendation:
+          type: string
+          example: Practice 10 more questions on Laws of Thermodynamics
+          description: AI-generated practice recommendation

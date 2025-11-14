@@ -1,0 +1,379 @@
+openapi: 3.0.3
+info:
+  title: Authentication API
+  version: 1.0.0
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register new user
+      description: Create new student account with consent tracking (DPDP Act compliance)
+      operationId: registerUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+                - targetExam
+                - consentVersion
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                  example: student@example.com
+                password:
+                  type: string
+                  minLength: 8
+                  maxLength: 128
+                  example: SecureP@ss123
+                  description: Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+                name:
+                  type: string
+                  minLength: 2
+                  maxLength: 100
+                  example: Rahul Sharma
+                phone:
+                  type: string
+                  pattern: '^[6-9][0-9]{9}$'
+                  example: '9876543210'
+                  description: Optional Indian mobile number (10 digits)
+                targetExam:
+                  type: string
+                  enum: [IIT_JEE, NEET]
+                  example: IIT_JEE
+                preferredLanguage:
+                  type: string
+                  enum: [en, hi]
+                  default: en
+                  example: en
+                consentVersion:
+                  type: string
+                  example: v1.0.0
+                  description: Version of T&C agreed (must match current version)
+                marketingConsent:
+                  type: boolean
+                  default: false
+                  example: false
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                    description: JWT access token (valid 7 days)
+        '400':
+          $ref: '../openapi.yaml#/components/responses/ValidationError'
+        '409':
+          description: Email or phone already registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: CONFLICT
+                      message:
+                        type: string
+                        example: Email already registered
+        '429':
+          $ref: '../openapi.yaml#/components/responses/RateLimitError'
+  
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: student@example.com
+                password:
+                  type: string
+                  example: SecureP@ss123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                    description: JWT access token (valid 7 days)
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: INVALID_CREDENTIALS
+                      message:
+                        type: string
+                        example: Invalid email or password
+        '429':
+          $ref: '../openapi.yaml#/components/responses/RateLimitError'
+  
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout user
+      description: Invalidate JWT token (add to blacklist)
+      operationId: logoutUser
+      responses:
+        '204':
+          description: Logout successful
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+  
+  /auth/password/reset:
+    post:
+      tags:
+        - Auth
+      summary: Request password reset
+      description: Send password reset OTP via email (valid 15 minutes)
+      operationId: requestPasswordReset
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: student@example.com
+      responses:
+        '202':
+          description: Reset email sent (even if email doesn't exist - security)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: If email exists, password reset OTP has been sent
+        '429':
+          $ref: '../openapi.yaml#/components/responses/RateLimitError'
+  
+  /auth/password/reset/confirm:
+    post:
+      tags:
+        - Auth
+      summary: Confirm password reset
+      description: Reset password using OTP
+      operationId: confirmPasswordReset
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - otp
+                - newPassword
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: student@example.com
+                otp:
+                  type: string
+                  pattern: '^[0-9]{6}$'
+                  example: '123456'
+                newPassword:
+                  type: string
+                  minLength: 8
+                  maxLength: 128
+                  example: NewSecureP@ss456
+      responses:
+        '200':
+          description: Password reset successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Password reset successful
+        '400':
+          description: Invalid or expired OTP
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: INVALID_OTP
+                      message:
+                        type: string
+                        example: Invalid or expired OTP
+        '429':
+          $ref: '../openapi.yaml#/components/responses/RateLimitError'
+  
+  /auth/consent:
+    put:
+      tags:
+        - Auth
+      summary: Update user consent
+      description: Update T&C or marketing consent (DPDP Act compliance)
+      operationId: updateConsent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentVersion:
+                  type: string
+                  example: v1.1.0
+                  description: New T&C version accepted
+                marketingConsent:
+                  type: boolean
+                  example: true
+                  description: Update marketing consent
+      responses:
+        '200':
+          description: Consent updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '../openapi.yaml#/components/responses/UnauthorizedError'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        email:
+          type: string
+          format: email
+          example: student@example.com
+        name:
+          type: string
+          example: Rahul Sharma
+        phone:
+          type: string
+          example: '9876543210'
+          nullable: true
+        role:
+          type: string
+          enum: [STUDENT, CONTENT_ADMIN, SUPER_ADMIN]
+          example: STUDENT
+        targetExam:
+          type: string
+          enum: [IIT_JEE, NEET]
+          example: IIT_JEE
+          nullable: true
+        preferredLanguage:
+          type: string
+          enum: [en, hi]
+          example: en
+        consentVersion:
+          type: string
+          example: v1.0.0
+          nullable: true
+        consentGivenAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T10:30:00Z'
+          nullable: true
+        marketingConsent:
+          type: boolean
+          example: false
+        subscription:
+          $ref: '#/components/schemas/UserSubscription'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T10:30:00Z'
+        lastLoginAt:
+          type: string
+          format: date-time
+          example: '2025-11-14T15:45:00Z'
+          nullable: true
+    
+    UserSubscription:
+      type: object
+      description: Simplified subscription info embedded in User
+      properties:
+        tier:
+          type: string
+          enum: [FREE, BUNDLE_10, BUNDLE_25, BUNDLE_50, UNLIMITED_1M, UNLIMITED_6M, UNLIMITED_1Y]
+          example: BUNDLE_10
+        status:
+          type: string
+          enum: [PENDING, ACTIVE, EXPIRED, GRACE_PERIOD, CANCELLED]
+          example: ACTIVE
+        testsRemaining:
+          type: integer
+          example: 7
+          nullable: true
+          description: null for unlimited tiers
+        validUntil:
+          type: string
+          format: date-time
+          example: '2026-11-14T23:59:59Z'
+          nullable: true
+          description: null for bundle tiers

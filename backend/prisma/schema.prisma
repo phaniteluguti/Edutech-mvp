@@ -1,0 +1,398 @@
+// Prisma Schema - EduTech AI Platform
+// Generator and Datasource
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  STUDENT
+  ADMIN
+  SME
+}
+
+enum SubscriptionTier {
+  FREE
+  BUNDLE_BASIC
+  BUNDLE_PLUS
+  UNLIMITED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  GRACE_PERIOD
+  CANCELLED
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum QuestionType {
+  SINGLE_CHOICE
+  MULTIPLE_CHOICE
+  NUMERICAL
+  ASSERTION_REASON
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum TestStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  EVALUATED
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+// ========================================
+// 1. PreviousYearQuestion (Core Innovation)
+// ========================================
+model PreviousYearQuestion {
+  id                String             @id @default(cuid())
+  
+  // Exam identification
+  examType          String             // "JEE", "NEET", etc.
+  year              Int
+  session           String?            // "January", "April", "May"
+  section           String?            // "Section A", "Section B"
+  questionNumber    Int?
+  
+  // Question content
+  text              String             @db.Text
+  imageUrl          String?
+  questionType      QuestionType
+  options           Json?              // Array of options for MCQ
+  correctAnswer     String
+  explanation       String             @db.Text
+  
+  // Classification
+  topic             String
+  subtopic          String?
+  difficulty        Difficulty
+  bloomLevel        String?            // Knowledge, Understanding, Application, Analysis
+  conceptsTested    String[]           // Array of concepts
+  
+  // Weightage
+  marks             Float
+  negativeMarks     Float              @default(0)
+  
+  // Pattern analysis
+  frequency         Int                @default(1)  // How many times similar appeared
+  commonMistakes    Json?              // Common wrong answers and why
+  
+  // Scraping metadata
+  scrapeSource      String             // PDF URL or manual entry
+  scrapedAt         DateTime           @default(now())
+  verificationStatus VerificationStatus @default(PENDING)
+  verifiedBy        String?            // SME user ID
+  verifiedAt        DateTime?
+  
+  // AI usage tracking
+  usedInAIPrompts   Int                @default(0)  // How many times used as context
+  lastUsedForAI     DateTime?
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([examType, year])
+  @@index([topic, difficulty])
+  @@index([verificationStatus])
+  @@unique([examType, year, session, questionNumber])
+}
+
+// ========================================
+// 2. User
+// ========================================
+model User {
+  id                    String           @id @default(cuid())
+  email                 String           @unique
+  phone                 String?          @unique
+  passwordHash          String
+  
+  // Profile
+  name                  String
+  dateOfBirth           DateTime?
+  isMinor               Boolean          @default(false)
+  
+  // DPDP Compliance (India Data Protection)
+  parentEmail           String?
+  parentConsentGiven    Boolean          @default(false)
+  parentConsentAt       DateTime?
+  consentVersion        String           @default("1.0")
+  consentGivenAt        DateTime         @default(now())
+  marketingConsent      Boolean          @default(false)
+  
+  // Account management
+  role                  UserRole         @default(STUDENT)
+  isActive              Boolean          @default(true)
+  isEmailVerified       Boolean          @default(false)
+  isPhoneVerified       Boolean          @default(false)
+  lastLoginAt           DateTime?
+  
+  // Relations
+  subscriptions         Subscription[]
+  transactions          Transaction[]
+  testAttempts          TestAttempt[]
+  weakAreas             WeakArea[]
+  
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  
+  @@index([email])
+  @@index([isMinor, parentConsentGiven])
+}
+
+// ========================================
+// 3. Subscription
+// ========================================
+model Subscription {
+  id                String              @id @default(cuid())
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  tier              SubscriptionTier
+  status            SubscriptionStatus  @default(ACTIVE)
+  
+  // Validity
+  startDate         DateTime            @default(now())
+  endDate           DateTime
+  gracePeriodEnds   DateTime?
+  
+  // Limits (null = unlimited)
+  testsPerMonth     Int?
+  mockTestsLimit    Int?
+  testsUsed         Int                 @default(0)
+  
+  // Payment tracking
+  razorpaySubscriptionId String?        @unique
+  autoRenew         Boolean             @default(false)
+  
+  // Relations
+  transactions      Transaction[]
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  
+  @@index([userId, status])
+  @@index([endDate])
+}
+
+// ========================================
+// 4. Transaction
+// ========================================
+model Transaction {
+  id                    String             @id @default(cuid())
+  userId                String
+  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  subscriptionId        String?
+  subscription          Subscription?      @relation(fields: [subscriptionId], references: [id])
+  
+  // Payment details
+  amount                Float
+  currency              String             @default("INR")
+  status                TransactionStatus  @default(PENDING)
+  
+  // Gateway integration
+  razorpayOrderId       String?            @unique
+  razorpayPaymentId     String?            @unique
+  razorpaySignature     String?
+  
+  // Metadata
+  paymentMethod         String?            // "UPI", "Card", "NetBanking"
+  failureReason         String?
+  
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+  
+  @@index([userId])
+  @@index([status, createdAt])
+}
+
+// ========================================
+// 5. Exam
+// ========================================
+model Exam {
+  id                String       @id @default(cuid())
+  name              String       // "JEE Main", "NEET UG"
+  slug              String       @unique
+  description       String?      @db.Text
+  
+  // Configuration
+  syllabus          Json         // Structured syllabus
+  pattern           Json         // Test pattern (sections, marks)
+  duration          Int          // Minutes
+  totalMarks        Float
+  negativeMarking   Boolean      @default(true)
+  
+  // Relations
+  mockTests         MockTest[]
+  
+  isActive          Boolean      @default(true)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([slug])
+}
+
+// ========================================
+// 6. MockTest
+// ========================================
+model MockTest {
+  id                String       @id @default(cuid())
+  examId            String
+  exam              Exam         @relation(fields: [examId], references: [id])
+  
+  title             String
+  description       String?      @db.Text
+  
+  // Test configuration
+  totalQuestions    Int
+  duration          Int          // Minutes
+  difficultyMix     Json         // {"easy": 30, "medium": 50, "hard": 20}
+  
+  // AI Generation metadata
+  generatedByAI     Boolean      @default(false)
+  generationPrompt  String?      @db.Text
+  previousYearsUsed Int          @default(0)  // Count of PYQs used in generation
+  
+  // Relations
+  questions         Question[]
+  attempts          TestAttempt[]
+  
+  isActive          Boolean      @default(true)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([examId])
+  @@index([generatedByAI])
+}
+
+// ========================================
+// 7. Question
+// ========================================
+model Question {
+  id                String         @id @default(cuid())
+  mockTestId        String
+  mockTest          MockTest       @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  
+  // Question content
+  questionNumber    Int
+  text              String         @db.Text
+  imageUrl          String?
+  type              QuestionType
+  options           Json?          // Array for MCQ
+  correctAnswer     String
+  explanation       String         @db.Text
+  
+  // Classification
+  subject           String
+  topic             String
+  subtopic          String?
+  difficulty        Difficulty
+  
+  // Marks
+  marks             Float
+  negativeMarks     Float          @default(0)
+  
+  // AI metadata
+  generatedByAI     Boolean        @default(false)
+  basedOnPYQId      String?        // Reference to PreviousYearQuestion
+  similarityScore   Float?         // 0-1, how similar to PYQ
+  
+  // Additional metadata
+  metadata          Json?          // Flexible field for extras
+  
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  
+  @@index([mockTestId, questionNumber])
+  @@index([topic, difficulty])
+}
+
+// ========================================
+// 8. TestAttempt
+// ========================================
+model TestAttempt {
+  id                String       @id @default(cuid())
+  userId            String
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  mockTestId        String
+  mockTest          MockTest     @relation(fields: [mockTestId], references: [id])
+  
+  status            TestStatus   @default(NOT_STARTED)
+  
+  // Timing (server-authoritative)
+  startedAt         DateTime?
+  submittedAt       DateTime?
+  serverTime        DateTime     @default(now())  // For sync conflicts
+  
+  // Responses
+  responses         Json         // {questionId: answer, ...}
+  timeTaken         Int?         // Seconds
+  
+  // Scoring
+  score             Float?
+  correctAnswers    Int?
+  incorrectAnswers  Int?
+  unattempted       Int?
+  
+  // Real-time sync
+  syncVersion       Int          @default(1)      // Optimistic locking
+  lastSyncedAt      DateTime     @default(now())
+  syncStatus        String       @default("synced") // "synced", "pending", "conflict"
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([userId, status])
+  @@index([mockTestId])
+  @@unique([userId, mockTestId])  // One attempt per user per test
+}
+
+// ========================================
+// 9. WeakArea
+// ========================================
+model WeakArea {
+  id                String       @id @default(cuid())
+  userId            String
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  subject           String
+  topic             String
+  
+  // Analytics
+  totalAttempted    Int          @default(0)
+  correctCount      Int          @default(0)
+  accuracy          Float        @default(0)    // Percentage
+  
+  // Recommendations
+  recommendedTests  Json?        // Array of test IDs
+  lastPracticed     DateTime?
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([userId])
+  @@unique([userId, topic])
+}

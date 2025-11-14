@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: edutech
+      POSTGRES_PASSWORD: edutech
+      POSTGRES_DB: edutech
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniopass
+    ports:
+      - "9000:9000"
+
+  ai-service:
+    build: ./ai-service
+    image: edutech-ai:local
+    ports:
+      - "8001:8001"
+    environment:
+      - AZURE_AOAI_ENDPOINT=${AZURE_AOAI_ENDPOINT}
+      - AZURE_AOAI_KEY=${AZURE_AOAI_KEY}
+    depends_on:
+      - redis
+
+  backend:
+    build: ./backend
+    image: edutech-backend:local
+    command: ["npm","run","dev"]
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://edutech:edutech@postgres:5432/edutech
+      - REDIS_URL=redis://redis:6379
+      - AI_SERVICE_URL=http://ai-service:8001
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - postgres
+      - redis
+      - ai-service
+
+  frontend:
+    build: ./frontend
+    image: edutech-frontend:local
+    command: ["npm","run","dev"]
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
