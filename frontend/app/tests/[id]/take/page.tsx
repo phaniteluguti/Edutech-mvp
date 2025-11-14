@@ -34,8 +34,9 @@ interface TestAttempt {
   mockTest: MockTest;
 }
 
-export default function TakeTestPage({ params }: { params: { id: string } }) {
+export default function TakeTestPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const [testId, setTestId] = useState<string>('');
   const [attempt, setAttempt] = useState<TestAttempt | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -48,8 +49,16 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    startTest();
-  }, []);
+    params.then(p => {
+      setTestId(p.id);
+    });
+  }, [params]);
+
+  useEffect(() => {
+    if (testId) {
+      startTest();
+    }
+  }, [testId]);
 
   // Auto-save every 30 seconds
   useEffect(() => {
@@ -88,7 +97,7 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
         return;
       }
 
-      const response = await fetch(`http://localhost:4000/api/v1/tests/${params.id}/start`, {
+      const response = await fetch(`http://localhost:4000/api/v1/tests/${testId}/start`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -106,9 +115,31 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
         const startTime = new Date(data.data.startedAt).getTime();
         const duration = data.data.mockTest.duration * 60; // Convert to seconds
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        setTimeRemaining(Math.max(0, duration - elapsed));
+        const remaining = Math.max(0, duration - elapsed);
+        setTimeRemaining(remaining);
+        console.log('Timer set to:', remaining, 'seconds');
       } else {
-        setError(data.message || 'Failed to start test');
+        // Check if test already submitted - redirect to results
+        const errorMsg = data.message || 'Failed to start test';
+        if (errorMsg.toLowerCase().includes('already submitted') || errorMsg.toLowerCase().includes('cannot restart')) {
+          // Try to find the attempt ID and redirect to results
+          try {
+            const historyResponse = await fetch('http://localhost:4000/api/v1/tests/my-attempts', {
+              headers: { 'Authorization': `Bearer ${token}` },
+            });
+            const historyData = await historyResponse.json();
+            if (historyResponse.ok) {
+              const existingAttempt = historyData.data?.find((a: any) => a.mockTest.id === testId);
+              if (existingAttempt) {
+                router.push(`/tests/results/${existingAttempt.id}`);
+                return;
+              }
+            }
+          } catch (e) {
+            console.error('Failed to fetch history:', e);
+          }
+        }
+        setError(errorMsg);
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred');
@@ -377,7 +408,7 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
                         onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
                         className="mt-1 mr-3"
                       />
-                      <span className="flex-1">
+                      <span className="flex-1 text-gray-900">
                         <span className="font-medium mr-2">{key}.</span>
                         {value}
                       </span>
@@ -396,7 +427,7 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
                     value={responses[currentQuestion.id] || ''}
                     onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
                     placeholder="Type numerical answer"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none text-gray-900"
                   />
                 </div>
               )}
@@ -439,7 +470,7 @@ export default function TakeTestPage({ params }: { params: { id: string } }) {
           <h3 className="text-lg font-bold text-gray-900 mb-4">Question Palette</h3>
           
           {/* Stats */}
-          <div className="mb-6 space-y-2 text-sm">
+          <div className="mb-6 space-y-2 text-sm text-gray-900">
             <div className="flex justify-between">
               <span className="flex items-center gap-2">
                 <span className="w-4 h-4 bg-green-500 rounded"></span>

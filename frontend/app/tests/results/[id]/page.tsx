@@ -47,16 +47,25 @@ interface Results {
   };
 }
 
-export default function ResultsPage({ params }: { params: { id: string } }) {
+export default function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const [attemptId, setAttemptId] = useState<string>('');
   const [results, setResults] = useState<Results | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'summary' | 'questions' | 'topics'>('summary');
 
   useEffect(() => {
-    fetchResults();
-  }, []);
+    params.then(p => {
+      setAttemptId(p.id);
+    });
+  }, [params]);
+
+  useEffect(() => {
+    if (attemptId) {
+      fetchResults();
+    }
+  }, [attemptId]);
 
   const fetchResults = async () => {
     try {
@@ -66,7 +75,7 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
         return;
       }
 
-      const response = await fetch(`http://localhost:4000/api/v1/tests/attempts/${params.id}/results`, {
+      const response = await fetch(`http://localhost:4000/api/v1/tests/attempts/${attemptId}/results`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
