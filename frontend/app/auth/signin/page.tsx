@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function LoginPage() {
+export default function SignInPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     emailOrPhone: '',
