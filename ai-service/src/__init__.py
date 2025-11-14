@@ -1,0 +1,1 @@
+"""EduTech AI Service"""

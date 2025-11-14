@@ -1,21 +1,23 @@
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-pydantic==2.5.3
-pydantic-settings==2.1.0
+fastapi==0.115.0
+uvicorn[standard]==0.32.1
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
 python-dotenv==1.0.0
 httpx==0.26.0
 
 # Azure OpenAI
-openai==1.7.2
+openai==2.8.0
 
 # PDF Processing (for scraping previous years papers)
-pdfplumber==0.10.4
-pytesseract==0.3.10
-Pillow==10.2.0
+pdfplumber==0.11.8
+pytesseract==0.3.13
+Pillow==12.0.0
 
 # Data processing
-pandas==2.1.4
-numpy==1.26.3
+pandas==2.3.3
+numpy==2.3.4
+scikit-learn==1.7.2
+python-multipart==0.0.20
 
 # Redis
 redis==5.0.1

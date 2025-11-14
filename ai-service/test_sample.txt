@@ -1,0 +1,28 @@
+JEE MAIN 2024 - PHYSICS
+
+Question 1: A particle of mass 2 kg is moving with a velocity of 5 m/s. What is its kinetic energy?
+(A) 10 J
+(B) 25 J
+(C) 50 J
+(D) 100 J
+Answer: B
+Difficulty: EASY
+Topic: Mechanics - Kinetic Energy
+
+Question 2: In a Young's double-slit experiment, the distance between the slits is 0.5 mm and the screen is placed 1 m away. If the wavelength of light used is 600 nm, what is the fringe width?
+(A) 0.6 mm
+(B) 1.2 mm
+(C) 1.8 mm
+(D) 2.4 mm
+Answer: B
+Difficulty: MEDIUM
+Topic: Optics - Wave Interference
+
+Question 3: A conducting sphere of radius R carries a charge Q. Another uncharged conducting sphere of radius 2R is brought in contact with it and then separated. What is the charge on the larger sphere?
+(A) Q/3
+(B) Q/2
+(C) 2Q/3
+(D) 3Q/4
+Answer: C
+Difficulty: HARD
+Topic: Electrostatics - Charge Distribution
