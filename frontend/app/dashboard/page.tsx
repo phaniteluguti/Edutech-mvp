@@ -450,7 +450,7 @@ function ExamsContent() {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  alert('Mock tests will be available in Phase 6! Coming soon...');
+                  router.push(`/exams/${exam.slug}/tests`);
                 }}
                 className="mt-6 w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition font-semibold flex items-center justify-center gap-2"
               >
