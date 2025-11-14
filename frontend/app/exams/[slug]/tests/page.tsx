@@ -83,9 +83,16 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
+      {/* Decorative background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
+      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <button
             onClick={() => router.back()}
@@ -119,28 +126,29 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
       )}
 
       {/* Tests Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {tests.length > 0 ? (
           <>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Available Mock Tests</h2>
-              <p className="text-gray-600">Select a test to begin your practice session</p>
+            <div className="mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">Available Mock Tests</h2>
+              <p className="text-gray-700 text-lg">Select a test to begin your practice session</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {tests.map((test) => (
                 <div
                   key={test.id}
-                  className="group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-blue-200 transform hover:-translate-y-1"
+                  className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-blue-300 transform hover:-translate-y-2"
                 >
                   {/* Card Header */}
-                  <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 p-6 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+                  <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 p-7 text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16"></div>
+                    <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-white/5 rounded-full"></div>
                     <div className="relative">
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-xl font-bold flex-1 pr-2">{test.title}</h3>
+                        <h3 className="text-xl font-bold flex-1 pr-2 leading-tight">{test.title}</h3>
                         {test.difficulty && (
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-lg ${
+                          <span className={`px-3 py-1.5 rounded-full text-xs font-bold shadow-lg ${
                             test.difficulty === 'Easy' ? 'bg-green-500' :
                             test.difficulty === 'Medium' ? 'bg-yellow-500' :
                             'bg-red-500'
@@ -156,36 +164,36 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-6 bg-gradient-to-b from-white to-gray-50">
+                  <div className="p-7 bg-gradient-to-b from-white to-blue-50/30">
                     <div className="space-y-3 mb-6">
-                      <div className="flex items-center justify-between text-sm bg-white rounded-lg p-3 shadow-sm">
-                        <span className="text-gray-600 flex items-center gap-2 font-medium">
+                      <div className="flex items-center justify-between text-sm bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-3.5 shadow-sm border border-purple-100">
+                        <span className="text-gray-700 flex items-center gap-2 font-semibold">
                           <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           Duration
                         </span>
-                        <span className="font-bold text-gray-900">{test.duration} mins</span>
+                        <span className="font-bold text-gray-900 text-base">{test.duration} mins</span>
                       </div>
 
-                      <div className="flex items-center justify-between text-sm bg-white rounded-lg p-3 shadow-sm">
-                        <span className="text-gray-600 flex items-center gap-2 font-medium">
+                      <div className="flex items-center justify-between text-sm bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3.5 shadow-sm border border-blue-100">
+                        <span className="text-gray-700 flex items-center gap-2 font-semibold">
                           <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                           </svg>
                           Questions
                         </span>
-                        <span className="font-bold text-gray-900">{test.totalQuestions}</span>
+                        <span className="font-bold text-gray-900 text-base">{test.totalQuestions}</span>
                       </div>
 
-                      <div className="flex items-center justify-between text-sm bg-white rounded-lg p-3 shadow-sm">
-                        <span className="text-gray-600 flex items-center gap-2 font-medium">
+                      <div className="flex items-center justify-between text-sm bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3.5 shadow-sm border border-green-100">
+                        <span className="text-gray-700 flex items-center gap-2 font-semibold">
                           <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           Total Marks
                         </span>
-                        <span className="font-bold text-gray-900">{test.totalMarks}</span>
+                        <span className="font-bold text-gray-900 text-base">{test.totalMarks}</span>
                       </div>
 
                       {test.attemptCount !== undefined && test.attemptCount > 0 && (
@@ -236,11 +244,11 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
             </div>
           </>
         ) : (
-          <div className="text-center py-24 bg-white rounded-3xl shadow-xl border-2 border-dashed border-gray-200">
+          <div className="text-center py-24 bg-gradient-to-br from-white to-blue-50 rounded-3xl shadow-2xl border-2 border-dashed border-blue-200">
             <div className="max-w-md mx-auto">
-              <div className="bg-gradient-to-br from-blue-100 to-indigo-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="bg-gradient-to-br from-blue-400 to-indigo-500 w-28 h-28 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl">
                 <svg
-                  className="w-12 h-12 text-blue-600"
+                  className="w-14 h-14 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -253,16 +261,16 @@ export default function ExamTestsPage({ params }: { params: Promise<{ slug: stri
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">No Mock Tests Available Yet</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Mock tests for <span className="font-semibold text-blue-600">{examName}</span> will be available soon. 
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">No Mock Tests Available Yet</h3>
+              <p className="text-gray-700 mb-10 leading-relaxed text-lg">
+                Mock tests for <span className="font-bold text-blue-600">{examName}</span> will be available soon. 
                 Check back later or explore other exams!
               </p>
               <button
                 onClick={() => router.push('/exams')}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl font-semibold transform hover:scale-105"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl hover:shadow-2xl font-bold text-lg transform hover:scale-105"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 Browse Other Exams
