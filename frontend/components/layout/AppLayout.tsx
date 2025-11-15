@@ -18,7 +18,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [user, setUser] = useState<User | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Collapsed by default for mobile
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const userStr = localStorage.getItem('user');
@@ -29,6 +30,19 @@ export default function AppLayout({ children }: AppLayoutProps) {
         console.error('Failed to parse user:', error);
       }
     }
+
+    // Check if mobile on mount and handle resize
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setSidebarOpen(true); // Auto-open on desktop
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleLogout = () => {
@@ -73,10 +87,22 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile Overlay */}
+      {isMobile && sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white transition-all duration-300 flex flex-col fixed h-full z-50 shadow-2xl`}>
+      <aside className={`${
+        sidebarOpen ? 'w-72' : 'w-20'
+      } ${
+        isMobile && !sidebarOpen ? '-translate-x-full' : 'translate-x-0'
+      } bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white transition-all duration-300 flex flex-col fixed h-full z-50 shadow-2xl md:translate-x-0`}>
         {/* Logo */}
-        <div className="p-5 border-b border-white/10 backdrop-blur-sm">
+        <div className="p-5 border-b border-white/10 backdrop-blur-sm flex-shrink-0">
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <Link href="/dashboard" className="flex items-center gap-3 hover:scale-105 transition-transform">
@@ -154,6 +180,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
               onClick={(e) => {
                 if (item.badge) {
                   e.preventDefault();
+                } else if (isMobile) {
+                  // Close sidebar on mobile after navigation
+                  setSidebarOpen(false);
                 }
               }}
               className={`group flex items-center gap-3 p-3.5 rounded-xl transition-all ${
@@ -191,6 +220,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
               <Link
                 key={item.id}
                 href={item.path}
+                onClick={() => {
+                  if (isMobile) {
+                    setSidebarOpen(false);
+                  }
+                }}
                 className={`group flex items-center gap-3 p-3.5 rounded-xl transition-all ${
                   isActive(item.path)
                     ? 'bg-white/20 text-white shadow-lg backdrop-blur-md border border-white/20'
@@ -205,7 +239,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </nav>
 
         {/* Logout */}
-        <div className="p-4 border-t border-white/10 backdrop-blur-sm">
+        <div className="p-4 border-t border-white/10 backdrop-blur-sm flex-shrink-0">
           <button
             onClick={handleLogout}
             className="w-full group flex items-center gap-3 p-3.5 rounded-xl bg-gradient-to-r from-red-600/80 to-red-700/80 hover:from-red-600 hover:to-red-700 transition-all text-white hover:scale-105 hover:shadow-xl backdrop-blur-md border border-red-500/30"
@@ -216,8 +250,26 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </div>
       </aside>
 
+      {/* Mobile Menu Button */}
+      {isMobile && (
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="fixed top-4 left-4 z-30 p-3 bg-purple-900 text-white rounded-xl shadow-lg md:hidden"
+        >
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {sidebarOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+      )}
+
       {/* Main Content */}
-      <main className={`flex-1 ${sidebarOpen ? 'ml-72' : 'ml-20'} transition-all duration-300`}>
+      <main className={`flex-1 ${
+        isMobile ? 'ml-0' : (sidebarOpen ? 'ml-72' : 'ml-20')
+      } transition-all duration-300 min-h-screen`}>
         {children}
       </main>
     </div>

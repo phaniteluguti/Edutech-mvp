@@ -1,0 +1,102 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]: Create Next App
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - generic [ref=e15]:
+        - link "🎓 EduTech Learn. Practice. Excel." [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e18]: 🎓
+          - generic [ref=e19]:
+            - text: EduTech
+            - paragraph [ref=e20]: Learn. Practice. Excel.
+        - button [ref=e21]:
+          - img [ref=e22]
+      - generic [ref=e26]:
+        - generic [ref=e28]: T
+        - generic [ref=e30]:
+          - paragraph [ref=e31]: Test Student
+          - paragraph [ref=e32]:
+            - img [ref=e33]
+            - text: student@example.com
+      - navigation [ref=e36]:
+        - link "🏠 Home" [ref=e37] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e38]: 🏠
+          - generic [ref=e39]: Home
+        - link "📝 Browse Exams" [ref=e40] [cursor=pointer]:
+          - /url: /exams
+          - generic [ref=e41]: 📝
+          - generic [ref=e42]: Browse Exams
+        - link "🎯 Mock Tests" [ref=e43] [cursor=pointer]:
+          - /url: /tests
+          - generic [ref=e44]: 🎯
+          - generic [ref=e45]: Mock Tests
+        - link "📜 Test History" [ref=e46] [cursor=pointer]:
+          - /url: /tests/history
+          - generic [ref=e47]: 📜
+          - generic [ref=e48]: Test History
+        - link "📚 Study Materials Soon" [ref=e49]:
+          - /url: "#"
+          - generic [ref=e50]: 📚
+          - generic [ref=e51]: Study Materials
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - text: Soon
+        - link "🤖 AI Assistant Soon" [ref=e55]:
+          - /url: "#"
+          - generic [ref=e56]: 🤖
+          - generic [ref=e57]: AI Assistant
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - text: Soon
+        - link "📊 Analytics Soon" [ref=e61]:
+          - /url: "#"
+          - generic [ref=e62]: 📊
+          - generic [ref=e63]: Analytics
+          - generic [ref=e64]:
+            - img [ref=e65]
+            - text: Soon
+        - link "💎 Subscription Soon" [ref=e67]:
+          - /url: "#"
+          - generic [ref=e68]: 💎
+          - generic [ref=e69]: Subscription
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - text: Soon
+        - generic [ref=e73]:
+          - paragraph [ref=e74]: Account
+          - link "👤 Profile" [ref=e75] [cursor=pointer]:
+            - /url: /profile
+            - generic [ref=e76]: 👤
+            - generic [ref=e77]: Profile
+          - link "⚙️ Settings" [ref=e78] [cursor=pointer]:
+            - /url: /settings
+            - generic [ref=e79]: ⚙️
+            - generic [ref=e80]: Settings
+          - link "🔒 Privacy" [ref=e81] [cursor=pointer]:
+            - /url: /privacy
+            - generic [ref=e82]: 🔒
+            - generic [ref=e83]: Privacy
+      - button "🚪 Logout" [ref=e85]:
+        - generic [ref=e86]: 🚪
+        - generic [ref=e87]: Logout
+    - main [ref=e88]:
+      - generic [ref=e89]:
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - heading "Test History" [level=1] [ref=e94]
+            - paragraph [ref=e95]: View all your past test attempts and results
+          - link "Browse Tests" [ref=e96] [cursor=pointer]:
+            - /url: /tests
+        - generic [ref=e98]:
+          - img [ref=e100]
+          - heading "No Test History" [level=3] [ref=e102]
+          - paragraph [ref=e103]: You haven't attempted any tests yet
+          - link "Take Your First Test" [ref=e104] [cursor=pointer]:
+            - /url: /tests
+```

@@ -1,0 +1,141 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - generic [ref=e15]:
+        - link "🎓 EduTech Learn. Practice. Excel." [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e18]: 🎓
+          - generic [ref=e19]:
+            - text: EduTech
+            - paragraph [ref=e20]: Learn. Practice. Excel.
+        - button [ref=e21]:
+          - img [ref=e22]
+      - generic [ref=e26]:
+        - generic [ref=e28]: T
+        - generic [ref=e30]:
+          - paragraph [ref=e31]: Test Student
+          - paragraph [ref=e32]:
+            - img [ref=e33]
+            - text: student@example.com
+      - navigation [ref=e36]:
+        - link "🏠 Home" [ref=e37] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e38]: 🏠
+          - generic [ref=e39]: Home
+        - link "📝 Browse Exams" [ref=e40] [cursor=pointer]:
+          - /url: /exams
+          - generic [ref=e41]: 📝
+          - generic [ref=e42]: Browse Exams
+        - link "🎯 Mock Tests" [ref=e43] [cursor=pointer]:
+          - /url: /tests
+          - generic [ref=e44]: 🎯
+          - generic [ref=e45]: Mock Tests
+        - link "📜 Test History" [ref=e46] [cursor=pointer]:
+          - /url: /tests/history
+          - generic [ref=e47]: 📜
+          - generic [ref=e48]: Test History
+        - link "📚 Study Materials Soon" [ref=e49]:
+          - /url: "#"
+          - generic [ref=e50]: 📚
+          - generic [ref=e51]: Study Materials
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - text: Soon
+        - link "🤖 AI Assistant Soon" [ref=e55]:
+          - /url: "#"
+          - generic [ref=e56]: 🤖
+          - generic [ref=e57]: AI Assistant
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - text: Soon
+        - link "📊 Analytics Soon" [ref=e61]:
+          - /url: "#"
+          - generic [ref=e62]: 📊
+          - generic [ref=e63]: Analytics
+          - generic [ref=e64]:
+            - img [ref=e65]
+            - text: Soon
+        - link "💎 Subscription Soon" [ref=e67]:
+          - /url: "#"
+          - generic [ref=e68]: 💎
+          - generic [ref=e69]: Subscription
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - text: Soon
+        - generic [ref=e73]:
+          - paragraph [ref=e74]: Account
+          - link "👤 Profile" [ref=e75] [cursor=pointer]:
+            - /url: /profile
+            - generic [ref=e76]: 👤
+            - generic [ref=e77]: Profile
+          - link "⚙️ Settings" [ref=e78] [cursor=pointer]:
+            - /url: /settings
+            - generic [ref=e79]: ⚙️
+            - generic [ref=e80]: Settings
+          - link "🔒 Privacy" [ref=e81] [cursor=pointer]:
+            - /url: /privacy
+            - generic [ref=e82]: 🔒
+            - generic [ref=e83]: Privacy
+      - button "🚪 Logout" [ref=e85]:
+        - generic [ref=e86]: 🚪
+        - generic [ref=e87]: Logout
+    - main [ref=e88]:
+      - generic [ref=e89]:
+        - generic [ref=e91]:
+          - heading "Welcome back, Test Student!" [level=1] [ref=e92]
+          - paragraph [ref=e93]: Here's your learning dashboard
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e98]:
+              - generic [ref=e99]:
+                - paragraph [ref=e100]: Email Status
+                - paragraph [ref=e101]: Verified
+              - generic [ref=e102]: ✅
+            - generic [ref=e104]:
+              - generic [ref=e105]:
+                - paragraph [ref=e106]: Account Type
+                - paragraph [ref=e107]: Minor
+              - generic [ref=e108]: 👶
+            - generic [ref=e110]:
+              - generic [ref=e111]:
+                - paragraph [ref=e112]: Subscription
+                - paragraph [ref=e113]: FREE
+              - generic [ref=e114]: 💎
+          - generic [ref=e116]:
+            - generic [ref=e117]: 🎉
+            - generic [ref=e118]:
+              - heading "Phase 4 Complete - Authentication Working!" [level=3] [ref=e119]
+              - paragraph [ref=e120]: "You have successfully logged in. Your authentication system is fully functional with:"
+              - list [ref=e121]:
+                - listitem [ref=e122]:
+                  - generic [ref=e123]: ✓
+                  - text: Email verification via Gmail SMTP
+                - listitem [ref=e124]:
+                  - generic [ref=e125]: ✓
+                  - text: Parental consent for minors (DPDP compliance)
+                - listitem [ref=e126]:
+                  - generic [ref=e127]: ✓
+                  - text: Secure password hashing
+                - listitem [ref=e128]:
+                  - generic [ref=e129]: ✓
+                  - text: JWT token authentication
+          - generic [ref=e130]:
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - generic [ref=e133]: 💳
+                - 'heading "Phase 5: Subscriptions" [level=3] [ref=e134]'
+              - paragraph [ref=e135]: Payment integration with Razorpay is coming next. You'll be able to subscribe to different tiers and manage your subscription.
+              - paragraph [ref=e137]: 🚧 Coming Soon
+            - generic [ref=e138]:
+              - generic [ref=e139]:
+                - generic [ref=e140]: 🤖
+                - heading "AI Study Assistant" [level=3] [ref=e141]
+              - paragraph [ref=e142]: Upload study materials and get AI-powered assistance with your learning. Chat with your documents and get instant answers.
+              - paragraph [ref=e144]: 🚧 Coming Soon
+```

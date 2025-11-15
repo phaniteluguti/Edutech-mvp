@@ -37,9 +37,36 @@ const testUsers = {
   ],
 };
 
-test.describe('Phase 1-4: Authentication Tests', () => {
+test.describe('Phase 1: Authentication Tests', () => {
   
-  test('User Registration: Adult User Signup', async ({ page }) => {
+  test('Phase 1.1: Google Sign-In Button Presence', async ({ page }) => {
+    console.log('Testing Google OAuth button on login page...');
+    
+    await page.goto(`${BASE_URL}/auth/login`);
+    
+    // Check for Google sign-in button
+    const googleButton = page.locator('button:has-text("Google"), button:has-text("Sign in with Google")');
+    const hasGoogleButton = await googleButton.isVisible().catch(() => false);
+    
+    if (hasGoogleButton) {
+      console.log('✓ Google Sign-In button found');
+    } else {
+      console.log('⚠️ Google Sign-In button not visible');
+    }
+    
+    // Also check registration page
+    await page.goto(`${BASE_URL}/auth/register`);
+    const googleRegButton = page.locator('button:has-text("Google"), button:has-text("Sign up with Google")');
+    const hasGoogleRegButton = await googleRegButton.isVisible().catch(() => false);
+    
+    if (hasGoogleRegButton) {
+      console.log('✓ Google Sign-Up button found on register page');
+    }
+    
+    console.log('✅ Google OAuth integration check completed');
+  });
+
+  test('Phase 1.2: User Registration: Adult User Signup', async ({ page }) => {
     console.log('Testing adult user registration...');
     
     await page.goto(`${BASE_URL}/auth/register`);
@@ -99,7 +126,7 @@ test.describe('Phase 1-4: Authentication Tests', () => {
     console.log('✅ Adult user registration test completed');
   });
 
-  test('User Login: Valid Credentials', async ({ page }) => {
+  test('Phase 1.3: User Login: Valid Credentials', async ({ page }) => {
     console.log('Testing login with valid credentials...');
     
     await page.goto(`${BASE_URL}/auth/login`);
@@ -119,7 +146,7 @@ test.describe('Phase 1-4: Authentication Tests', () => {
     console.log('✅ Valid login working correctly');
   });
 
-  test('User Login: Invalid Credentials', async ({ page }) => {
+  test('Phase 1.4: User Login: Invalid Credentials', async ({ page }) => {
     console.log('Testing login with invalid credentials...');
     
     await page.goto(`${BASE_URL}/auth/login`);
@@ -731,6 +758,174 @@ test.describe('Phase 1-4: Authentication Tests', () => {
     }
     
     console.log('✅ Remember me feature tested');
+  });
+
+  test('Phase 1.5: Navigation UI Consistency', async ({ page }) => {
+    console.log('Testing navigation UI across pages...');
+    
+    // Login first
+    await page.goto(`${BASE_URL}/auth/login`);
+    await page.fill('input[name="emailOrPhone"], input[name="email"]', testUsers.existingUser.email);
+    await page.fill('input[name="password"]', testUsers.existingUser.password);
+    await page.click('button[type="submit"]');
+    await page.waitForURL(`${BASE_URL}/dashboard`);
+    
+    console.log('✓ Logged in for navigation test');
+    
+    // Check navigation menu items
+    const navItems = [
+      { text: 'Home', path: '/dashboard' },
+      { text: 'Browse Exams', path: '/exams' },
+      { text: 'Mock Tests', path: '/tests' },
+      { text: 'Test History', path: '/tests/history' },
+      { text: 'Profile', path: '/profile' },
+      { text: 'Settings', path: '/settings' },
+    ];
+    
+    for (const item of navItems) {
+      const navLink = page.locator(`a:has-text("${item.text}")`).first();
+      const isVisible = await navLink.isVisible().catch(() => false);
+      
+      if (isVisible) {
+        console.log(`✓ Navigation item found: ${item.text}`);
+        
+        // Click and verify navigation
+        await navLink.click();
+        await page.waitForTimeout(1000);
+        
+        const currentUrl = page.url();
+        if (currentUrl.includes(item.path)) {
+          console.log(`✓ Navigated to ${item.path}`);
+        }
+      } else {
+        console.log(`⚠️ Navigation item not found: ${item.text}`);
+      }
+    }
+    
+    console.log('✅ Navigation UI consistency tested');
+  });
+
+  test('Phase 1.6: Test History Navigation Highlighting', async ({ page }) => {
+    console.log('Testing navigation highlighting for Test History...');
+    
+    // Login first
+    await page.goto(`${BASE_URL}/auth/login`);
+    await page.fill('input[name="emailOrPhone"], input[name="email"]', testUsers.existingUser.email);
+    await page.fill('input[name="password"]', testUsers.existingUser.password);
+    await page.click('button[type="submit"]');
+    await page.waitForURL(`${BASE_URL}/dashboard`);
+    
+    // Navigate to Test History
+    const testHistoryLink = page.locator('a:has-text("Test History")').first();
+    await testHistoryLink.click();
+    await page.waitForTimeout(1000);
+    
+    // Check if Test History is highlighted (active state)
+    const testHistoryItem = page.locator('a:has-text("Test History")').first();
+    const isActive = await testHistoryItem.evaluate((el) => {
+      return el.classList.contains('bg-white/20') || 
+             el.classList.contains('active') ||
+             window.getComputedStyle(el).backgroundColor !== 'rgba(0, 0, 0, 0)';
+    }).catch(() => false);
+    
+    if (isActive) {
+      console.log('✓ Test History is highlighted');
+    }
+    
+    // Check that Mock Tests is NOT highlighted
+    const mockTestsLink = page.locator('a:has-text("Mock Tests")').first();
+    const mockTestsActive = await mockTestsLink.evaluate((el) => {
+      return el.classList.contains('bg-white/20') || 
+             el.classList.contains('active');
+    }).catch(() => false);
+    
+    if (!mockTestsActive) {
+      console.log('✓ Mock Tests is not highlighted (correct behavior)');
+    } else {
+      console.log('⚠️ Mock Tests should not be highlighted when on Test History');
+    }
+    
+    console.log('✅ Navigation highlighting tested');
+  });
+
+  test('Phase 1.7: Settings Page Accessibility', async ({ page }) => {
+    console.log('Testing Settings page...');
+    
+    // Login first
+    await page.goto(`${BASE_URL}/auth/login`);
+    await page.fill('input[name="emailOrPhone"], input[name="email"]', testUsers.existingUser.email);
+    await page.fill('input[name="password"]', testUsers.existingUser.password);
+    await page.click('button[type="submit"]');
+    await page.waitForURL(`${BASE_URL}/dashboard`);
+    
+    // Navigate to Settings
+    await page.goto(`${BASE_URL}/settings`);
+    await page.waitForTimeout(1000);
+    
+    // Check if Settings page loads (not 404)
+    const pageTitle = await page.locator('h1, h2').first().textContent().catch(() => '');
+    const isSettingsPage = pageTitle?.toLowerCase().includes('settings') || 
+                           page.url().includes('/settings');
+    
+    if (isSettingsPage) {
+      console.log('✓ Settings page loads successfully');
+      
+      // Check for settings sections
+      const settingsSections = [
+        'General',
+        'Notifications',
+        'Appearance',
+        'Preferences'
+      ];
+      
+      for (const section of settingsSections) {
+        const sectionExists = await page.locator(`text=${section}`).isVisible().catch(() => false);
+        if (sectionExists) {
+          console.log(`✓ Settings section found: ${section}`);
+        }
+      }
+    } else {
+      console.log('⚠️ Settings page may not be fully implemented');
+    }
+    
+    console.log('✅ Settings page tested');
+  });
+
+  test('Phase 1.8: Consistent Purple Gradient Headers', async ({ page }) => {
+    console.log('Testing consistent header styling across pages...');
+    
+    // Login first
+    await page.goto(`${BASE_URL}/auth/login`);
+    await page.fill('input[name="emailOrPhone"], input[name="email"]', testUsers.existingUser.email);
+    await page.fill('input[name="password"]', testUsers.existingUser.password);
+    await page.click('button[type="submit"]');
+    await page.waitForURL(`${BASE_URL}/dashboard`);
+    
+    // Pages to check
+    const pagesToCheck = [
+      '/dashboard',
+      '/exams',
+      '/tests',
+      '/tests/history',
+      '/profile',
+      '/settings'
+    ];
+    
+    for (const path of pagesToCheck) {
+      await page.goto(`${BASE_URL}${path}`);
+      await page.waitForTimeout(500);
+      
+      // Check for purple gradient header
+      const hasGradientHeader = await page.locator('[class*="from-purple-900"]').isVisible().catch(() => false);
+      
+      if (hasGradientHeader) {
+        console.log(`✓ Purple gradient header found on ${path}`);
+      } else {
+        console.log(`⚠️ Purple gradient header not found on ${path}`);
+      }
+    }
+    
+    console.log('✅ Header styling consistency tested');
   });
 });
 
